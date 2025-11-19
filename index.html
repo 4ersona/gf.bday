@@ -6,43 +6,437 @@
 <title>for my pretty girl</title>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap');
-*{box-sizing:border-box}
-html,body{height:100%;margin:0;font-family:'Poppins',sans-serif;background:linear-gradient(160deg,#fff0f6 0%,#ffeef8 50%,#fffaf0 100%);color:#333;-webkit-font-smoothing:antialiased}
-.container{min-height:100vh;display:flex;flex-direction:column;align-items:center;padding:22px;gap:18px}
-.nav{display:flex;gap:12px;background:rgba(255,255,255,0.9);padding:10px;border-radius:14px;box-shadow:0 6px 20px rgba(255,120,160,0.08);z-index:10}
-.nav button{background:transparent;border:none;padding:8px 12px;border-radius:10px;font-weight:600;color:#ff4f89;cursor:pointer}
-.nav button.active{background:linear-gradient(90deg,#ff9ac1,#ff6fa3);color:white;box-shadow:0 8px 20px rgba(255,110,160,0.12)}
-.header{margin-top:6vh;text-align:center;z-index:2}
-.title{font-size:2.4rem;color:#ff2e84;margin-bottom:6px}
-.subtitle{color:#ff6fa3;font-weight:500}
-.card{width:100%;max-width:980px;background:rgba(255,255,255,0.88);padding:20px;border-radius:16px;box-shadow:0 10px 30px rgba(255,125,170,0.06);backdrop-filter:blur(6px)}
-.centered{display:flex;align-items:center;justify-content:center;flex-direction:column;gap:10px;height:60vh}
-.typewriter{display:inline-block;white-space:nowrap;overflow:hidden;border-right:.12em solid rgba(0,0,0,0.06);font-weight:700}
-.floating-layer{position:fixed;left:0;right:0;top:0;bottom:0;pointer-events:none;z-index:1;overflow:visible}
-.heart{position:absolute;bottom:-80px;opacity:.95;transform-origin:center;pointer-events:none}
-.heart::before,.heart::after{content:"";position:absolute;display:block;width:60%;height:60%;background:linear-gradient(135deg,#ff5a9a,#ffcdf0);border-radius:50%}
-.heart::before{left:50%;transform:translateX(-50%) rotate(-45deg);top:0;border-top-left-radius:60% 60%}
-.heart::after{left:50%;transform:translateX(-50%) rotate(45deg);top:0}
-@keyframes rise{to{transform:translateY(-120vh) scale(.6) rotate(10deg);opacity:0}}
-.overlay{position:fixed;left:0;right:0;top:0;bottom:0;display:flex;align-items:center;justify-content:center;background:rgba(255,245,249,0.92);z-index:9999;transition:opacity .6s;backdrop-filter:blur(2px)}
-.overlay.hidden{opacity:0;pointer-events:none}
-.begin-box{background:rgba(255,255,255,0.98);padding:18px 22px;border-radius:14px;box-shadow:0 10px 40px rgba(255,120,160,0.12);font-size:1.1rem;color:#ff4f89}
-.hint{margin-top:8px;font-size:0.9rem;color:#ff7aa9}
-.collage{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:12px;align-items:center;justify-items:center}
-.collage img{width:100%;height:700px;object-fit:cover;border-radius:12px;box-shadow:0 8px 20px rgba(0,0,0,0.06);transition:transform .25s}
-.collage img:hover{transform:scale(1.03)}
-.note-area{min-height:220px;border-radius:12px;padding:18px;border:2px dashed #ff9ac1;white-space:pre-wrap;background:rgba(255,255,255,0.95)}
-.quiz{display:flex;flex-direction:column;gap:12px;align-items:center}
-.q-card{background:linear-gradient(180deg,rgba(255,250,255,0.98),#fff);padding:18px;border-radius:12px;box-shadow:0 8px 24px rgba(255,120,160,0.06);width:100%;max-width:760px}
-.choices{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
-.choice{background:rgba(255,230,240,0.9);padding:10px 12px;border-radius:10px;cursor:pointer;border:2px solid transparent}
-.choice:hover{transform:translateY(-3px)}
-.feedback{margin-top:10px;color:#b03b6b;font-weight:700}
-.fade{transition:opacity .45s, transform .45s}
-.hidden{display:none}
-.footer{margin:20px 0;color:#ff5b9d;font-weight:600}
-@media (max-width:600px){.title{font-size:1.6rem}.collage img{height:500px}}
+
+* {
+  box-sizing: border-box;
+}
+
+/* Base layout */
+html,
+body {
+  height: 100%;
+  margin: 0;
+  font-family: 'Poppins', sans-serif;
+  background: linear-gradient(160deg, #fff0f6 0%, #ffeef8 50%, #fffaf0 100%);
+  color: #333;
+  -webkit-font-smoothing: antialiased;
+}
+
+.container {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 22px;
+  gap: 18px;
+}
+
+/* Top nav */
+.nav {
+  display: flex;
+  gap: 12px;
+  background: rgba(255, 255, 255, 0.9);
+  padding: 10px;
+  border-radius: 14px;
+  box-shadow: 0 6px 20px rgba(255, 120, 160, 0.08);
+  z-index: 10;
+}
+
+.nav button {
+  background: transparent;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 10px;
+  font-weight: 600;
+  color: #ff4f89;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.nav button.active {
+  background: linear-gradient(90deg, #ff9ac1, #ff6fa3);
+  color: white;
+  box-shadow: 0 8px 20px rgba(255, 110, 160, 0.12);
+}
+
+/* Header */
+.header {
+  margin-top: 6vh;
+  text-align: center;
+  z-index: 2;
+}
+
+.title {
+  font-size: 2.4rem;
+  color: #ff2e84;
+  margin-bottom: 6px;
+}
+
+.subtitle {
+  color: #ff6fa3;
+  font-weight: 500;
+}
+
+/* Card shell */
+.card {
+  width: 100%;
+  max-width: 980px;
+  background: rgba(255, 255, 255, 0.88);
+  padding: 20px;
+  border-radius: 16px;
+  box-shadow: 0 10px 30px rgba(255, 125, 170, 0.06);
+  backdrop-filter: blur(6px);
+}
+
+/* Centered home content */
+.centered {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 10px;
+  height: 60vh;
+}
+
+/* Typewriter text */
+.typewriter {
+  display: inline-block;
+  white-space: nowrap;
+  overflow: hidden;
+  border-right: 0.12em solid rgba(0, 0, 0, 0.06);
+  font-weight: 700;
+}
+
+/* Floating hearts layer */
+.floating-layer {
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  pointer-events: none;
+  z-index: 1;
+  overflow: visible;
+}
+
+/* Heart shape (unused but kept) */
+.heart {
+  position: absolute;
+  bottom: -80px;
+  opacity: 0.95;
+  transform-origin: center;
+  pointer-events: none;
+}
+
+.heart::before,
+.heart::after {
+  content: "";
+  position: absolute;
+  display: block;
+  width: 60%;
+  height: 60%;
+  background: linear-gradient(135deg, #ff5a9a, #ffcdf0);
+  border-radius: 50%;
+}
+
+.heart::before {
+  left: 50%;
+  transform: translateX(-50%) rotate(-45deg);
+  top: 0;
+  border-top-left-radius: 60% 60%;
+}
+
+.heart::after {
+  left: 50%;
+  transform: translateX(-50%) rotate(45deg);
+  top: 0;
+}
+
+@keyframes rise {
+  to {
+    transform: translateY(-120vh) scale(0.6) rotate(10deg);
+    opacity: 0;
+  }
+}
+
+/* Overlay intro */
+.overlay {
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 245, 249, 0.92);
+  z-index: 9999;
+  transition: opacity 0.6s;
+  backdrop-filter: blur(2px);
+}
+
+.overlay.hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.begin-box {
+  background: rgba(255, 255, 255, 0.98);
+  padding: 18px 22px;
+  border-radius: 14px;
+  box-shadow: 0 10px 40px rgba(255, 120, 160, 0.12);
+  font-size: 1.1rem;
+  color: #ff4f89;
+}
+
+.hint {
+  margin-top: 8px;
+  font-size: 0.9rem;
+  color: #ff7aa9;
+}
+
+/* Collage grid */
+.collage {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 14px;
+  justify-items: center;
+  align-items: center;
+}
+
+.collage img {
+  width: 100%;
+  height: auto;            /* show the full picture */
+  object-fit: contain;     /* no cropping ever */
+  background: #ffffff;     /* keeps letterbox areas clean */
+  border-radius: 12px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.06);
+  transition: transform 0.25s;
+  max-height: none;        /* no forced limiting */
+}
+
+.collage img:hover {
+  transform: scale(1.03);
+}
+
+/* Note area */
+.note-area {
+  min-height: 220px;
+  border-radius: 12px;
+  padding: 18px;
+  border: 2px dashed #ff9ac1;
+  white-space: pre-wrap;
+  background: rgba(255, 255, 255, 0.95);
+}
+
+/* Quiz */
+.quiz {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  align-items: center;
+}
+
+.q-card {
+  background: linear-gradient(180deg, rgba(255, 250, 255, 0.98), #fff);
+  padding: 18px;
+  border-radius: 12px;
+  box-shadow: 0 8px 24px rgba(255, 120, 160, 0.06);
+  width: 100%;
+  max-width: 760px;
+}
+
+.choices {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 10px;
+}
+
+.choice {
+  background: rgba(255, 230, 240, 0.9);
+  padding: 10px 12px;
+  border-radius: 10px;
+  cursor: pointer;
+  border: 2px solid transparent;
+}
+
+.choice:hover {
+  transform: translateY(-3px);
+}
+
+.feedback {
+  margin-top: 10px;
+  color: #b03b6b;
+  font-weight: 700;
+}
+
+/* Animations */
+.fade {
+  transition: opacity 0.45s, transform 0.45s;
+}
+
+.hidden {
+  display: none;
+}
+
+/* Footer */
+.footer {
+  margin: 20px 0;
+  color: #ff5b9d;
+  font-weight: 600;
+}
+
+/* Heart background animation (from your extra style block) */
+.hearts {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  overflow: hidden;
+  z-index: 0;
+}
+
+.heart-bg {
+  position: absolute;
+  bottom: -10px;
+  color: #ffb6c1;
+  font-size: 20px;
+  animation: floatUp 6s linear infinite;
+  opacity: 0.7;
+}
+
+@keyframes floatUp {
+  0% {
+    transform: translateY(0) scale(1);
+    opacity: 0.8;
+  }
+  100% {
+    transform: translateY(-120vh) scale(1.3);
+    opacity: 0;
+  }
+}
+
+/* ---------- RESPONSIVE TWEAKS ---------- */
+
+/* Tablets & small laptops */
+@media (max-width: 900px) {
+  .container {
+    padding: 16px 14px;
+  }
+
+  .header {
+    margin-top: 4vh;
+  }
+
+  .card {
+    padding: 16px;
+  }
+}
+
+/* iPads / small tablets & landscape phones */
+@media (max-width: 768px) {
+  .nav {
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 8px;
+    padding: 8px;
+  }
+
+  .nav button {
+    flex: 1 1 calc(50% - 12px);
+    text-align: center;
+    font-size: 0.9rem;
+    padding: 8px 6px;
+  }
+
+  .centered {
+    height: auto;
+    padding: 40px 10px;
+  }
+
+  main {
+    max-width: 100%;
+  }
+
+  /* Allow title to wrap instead of overflowing */
+  .typewriter {
+    white-space: normal;
+  }
+
+  /* Heart section image + text */
+  #heart img {
+    width: 100%;
+    max-width: 260px;
+    height: auto;
+    margin-bottom: 12px;
+  }
+
+  #heart p {
+    font-size: 0.95rem;
+  }
+}
+
+/* Phones */
+@media (max-width: 600px) {
+  .title {
+    font-size: 1.5rem;
+  }
+
+  .subtitle {
+    font-size: 0.9rem;
+  }
+
+  .collage {
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+  }
+
+  .collage img {
+    max-height: 260px;
+  }
+
+  .note-area {
+    font-size: 0.9rem;
+    padding: 14px;
+  }
+
+  .q-card {
+    padding: 14px;
+  }
+
+  .choices {
+    gap: 6px;
+  }
+
+  .choice {
+    flex: 1 1 calc(50% - 6px);
+    text-align: center;
+    font-size: 0.85rem;
+    padding: 8px;
+  }
+
+  .typewriter {
+    font-size: 1.3rem;
+    border-right-width: 0.08em;
+  }
+}
+
+/* Extra-small phones */
+@media (max-width: 400px) {
+  .nav button {
+    flex: 1 1 100%;
+    font-size: 0.85rem;
+  }
+
+  .collage {
+    grid-template-columns: 1fr;
+  }
+}
 </style>
+
 </head>
 <body>
 <div class="floating-layer" id="floating"></div>
