@@ -1,0 +1,21 @@
+{
+  "name": "StormChaserSimulator",
+  "tree": {
+    "$className": "DataModel",
+    "ReplicatedStorage": {
+      "Shared": {
+        "$className": "Folder",
+        "Config": {
+          "$className": "Folder",
+          "WorldConfig": { "$path": "src/ReplicatedStorage/Shared/Config/WorldConfig.luau" }
+        }
+      }
+    },
+    "ServerStorage": {
+      "DevTools": {
+        "$className": "Folder",
+        "TerrainGenerator": { "$path": "src/ServerStorage/DevTools/TerrainGenerator.luau" }
+      }
+    }
+  }
+}
