@@ -646,6 +646,26 @@ function WorldConfig.GetFlattenAreas(): { any }
 end
 
 --------------------------------------------------------------------------------
+-- INTERACTION & TELEPORT SETTINGS (shared by Hub, Bases, Navigation)
+--------------------------------------------------------------------------------
+-- ProximityPrompt defaults tuned for phones: instant (no hold), generous range,
+-- no line-of-sight requirement so thumbs never "miss" a prompt behind a railing.
+WorldConfig.Prompts = {
+	MaxActivationDistance = 12,
+	HoldDuration = 0,
+	RequiresLineOfSight = false,
+	KeyboardKeyCode = Enum.KeyCode.E,
+	GamepadKeyCode = Enum.KeyCode.ButtonX,
+}
+
+WorldConfig.Teleport = {
+	Cooldown = 3, -- seconds between pad teleports per player
+	ArrivalHeight = 4, -- studs above the destination to drop the player/vehicle
+	-- Arrive next to (not on) the Hub spawn so you don't re-trigger a pad.
+	HubArrival = v2(0, -28), -- Hub-local
+}
+
+--------------------------------------------------------------------------------
 -- STREAMING & PERFORMANCE BUDGETS (read by the audit script)
 --------------------------------------------------------------------------------
 WorldConfig.Budgets = {

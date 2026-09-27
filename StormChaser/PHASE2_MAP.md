@@ -1,15 +1,19 @@
 # Storm Chaser Simulator: Phase 2, Map Creation
 
-Status: **Steps 1–3 done** (layout, WorldConfig, terrain generator). Next: Hub build.
+Status: **Steps 1–5 done** (layout, WorldConfig, terrain, Hub, Bases). Next: Zones & Gates.
 
 | Step | Deliverable | File (Explorer location) |
 |---|---|---|
 | 1 | Layout plan | this document |
 | 2 | WorldConfig | `ReplicatedStorage > Shared > Config > WorldConfig` (ModuleScript) |
 | 3 | Terrain generator | `ServerStorage > DevTools > TerrainGenerator` (ModuleScript, edit-time tool) |
-| 4 | Hub build | *next* |
-| 5 | Bases / BaseService | *pending* |
-| 6 | Zones / Gates / LaunchPad | *pending* |
+| – | Shared build helpers | `ServerStorage > DevTools > BuildKit` (ModuleScript) |
+| 4 | Hub build | `ServerStorage > DevTools > HubGenerator` (ModuleScript, edit-time tool) |
+| 5 | Base template | `ServerStorage > DevTools > BaseTemplateBuilder` (ModuleScript, edit-time tool) |
+| 5 | BaseService | `ServerScriptService > Services > BaseService` (ModuleScript) |
+| 5 | TeleportPadService | `ServerScriptService > Services > TeleportPadService` (ModuleScript) |
+| 5 | Service loader | `ServerScriptService > ServicesLoader` (Script), skip if Phase 1 has one |
+| 6 | Zones / Gates / LaunchPad | *next* |
 | 7 | Landmarks & props | *pending* |
 | 8 | Navigation | *pending* |
 | 9 | Streaming & audit | *pending* (budgets already in `WorldConfig.Budgets`) |
@@ -175,3 +179,97 @@ Cloning the module first gets around the Command Bar's `require` cache, so edits
 4. Run the tool again. The result should be identical, because it is idempotent and seeded.
 5. Change one biome's `Seed` in WorldConfig and run `Generate({ Only = "Plains" })`. Only Plains should change.
 6. Run `Clear()`. All terrain and bridges should disappear.
+
+---
+
+## Shared: BuildKit
+
+`ServerStorage > DevTools > BuildKit` (ModuleScript) is required by every generator. It provides:
+* part defaults for mobile. Parts are anchored, and anything whose longest side is under 8 studs gets **CastShadow off**. **CanTouch is off** unless you ask for it, and **CanQuery follows CanCollide**.
+* signs (SurfaceGui, FredokaOne font, outlined text, `LightInfluence = 0`) and billboards.
+* ProximityPrompts built from `WorldConfig.Prompts`: `HoldDuration 0`, range 12, no line-of-sight check, tappable, E key / gamepad X.
+* `groundY()` (raycasts terrain only), `tag()`, `reset()` (the idempotent container), and `freshRequire()`.
+
+**Setup:** insert a ModuleScript named `BuildKit` into `ServerStorage > DevTools` and paste the file in. Nothing to test on its own.
+
+---
+
+## 4. Hub build
+
+`ServerStorage > DevTools > HubGenerator` (ModuleScript). Its output goes to `Workspace > Map > Hub > Generated` and is rebuilt on every run.
+
+| Piece | Tag / attributes | Interaction hook for Phase 3 |
+|---|---|---|
+| `Spawn` | SpawnLocation (Neutral, no forcefield) | – |
+| `Shop_Upgrades/Pets/Vehicles/Cosmetics` | NPC model tagged **`ShopNPC`**, `Shop = "<name>"` | `ShopNPC.Body.Prompt` ("Open Pets") |
+| `SellPad` | part `Pad` tagged **`SellPad`** (CanTouch on), green neon ring, PointLight | `.Touched` |
+| `Leaderboard_<Stat>` ×3 | model tagged **`Leaderboard`**, `Stat = Energy/Rebirths/StormsCaught` | add rows to `Board.BoardGui.List` (UIListLayout) |
+| `RebirthAltar` | model tagged **`RebirthAltar`** | `Top.Prompt` |
+| `EventBoard` | model tagged **`EventBoard`** | set `Board.BoardGui.Status.Text` |
+| `DailyChest` | model tagged **`DailyChest`** | `Base.Prompt`, animate `Lid` |
+| `BaseTeleportPad` | part tagged **`TeleportPad`**, `Destination = "Base"` | handled by TeleportPadService |
+
+Shops have a colour-coded chunky stepped roof, a big two-sided sign above the roof, an open front facing the plaza, a counter and a round friendly shopkeeper. The design is parts-only so you can swap each model for a mesh later.
+
+### Setup
+1. Steps 2–3 must be done first. The terrain gives the plaza height; without terrain the Hub falls back to Y = 0.
+2. Insert a ModuleScript named `HubGenerator` into `ServerStorage > DevTools`.
+3. Run it from the Command Bar in Edit mode:
+```lua
+local m = game.ServerStorage.DevTools.HubGenerator:Clone(); m.Parent = game.ServerStorage.DevTools
+local ok, err = pcall(function() require(m).Build() end); m:Destroy(); if not ok then warn(err) end
+```
+
+### Test
+1. The Output should show `[HubGenerator] Built Hub: N parts…` with N around 110, well under the Hub budget of 900.
+2. Look down from above the plaza. The 4 shops should sit on the west half facing the centre. The east corridor (the road to Plains) should be clear, and the sell pad, chest, board and leaderboards should be on the east side.
+3. Press **Play**, walk to a shopkeeper, and check that "Open Pets" etc. appears within about 12 studs. Use **Device Emulator → iPhone** and check the prompt can be tapped.
+4. Paste `print(#game.CollectionService:GetTagged("ShopNPC"), #game.CollectionService:GetTagged("Leaderboard"))` in the Command Bar. It should print `4 3`.
+5. Run the generator again. The part count should be identical and there should be no duplicates.
+
+---
+
+## 5. Base plots
+
+### 5a. BaseTemplateBuilder
+`ServerStorage > DevTools > BaseTemplateBuilder` (ModuleScript) builds **`ServerStorage > ServerAssets > BaseTemplate`**. The template is built at the origin with its entrance facing −Z. Everything in it is sized from `WorldConfig.Bases`.
+
+| Child | What it is | Tag / attributes |
+|---|---|---|
+| `Floor` | 110×1×110 platform (PrimaryPart) | – |
+| `ThemeRegion`, `ThemeAccent`×4 | recolourable base-theme region | attribute `ThemeRegion = true` |
+| `CoreRack` | 3 stepped tiers, 24 pedestals | 24 Attachments **`CoreSlot`**: `SlotIndex` 1–24, `Unlocked` (first 8 = true) |
+| `DefensePads` | 4 coral pads | Attachments **`DefenseSlot`**: `SlotIndex` 1–4 |
+| `Entrance` | pillars + arch, 30-stud gap in the low wall | Attachment **`LaserGateSlot`** on `Floor`: `Width`, `Height` |
+| `ClaimSign` | `Board.ClaimGui.Headshot` (ImageLabel) + `OwnerName` (TextLabel) | – |
+| `HubTeleportPad` | pad inside the entrance | **`TeleportPad`**, `Destination = "Hub"` |
+| `Floor.BaseSpawn` | Attachment where the owner arrives, facing the rack | – |
+| `BaseZone` | invisible 110×80×110 volume (no collide/query/touch) | **`BaseZone`**, `PlotId` |
+
+**Run:**
+```lua
+local m = game.ServerStorage.DevTools.BaseTemplateBuilder:Clone(); m.Parent = game.ServerStorage.DevTools
+local ok, err = pcall(function() require(m).Build() end); m:Destroy(); if not ok then warn(err) end
+```
+The Output should show `Built … BaseTemplate (~55 parts, 24 CoreSlots, 4 DefenseSlots)`, well under the 250-part budget.
+
+### 5b. BaseService + TeleportPadService + ServicesLoader
+* **BaseService** `Init()` clones the template into `Workspace > Bases > PlotN > Base` at each plot's CFrame. The entrance faces the Hub and the model is set to `ModelStreamingMode = Atomic`. It sets `PlotId` on each plot and zone. `Start()` assigns the first free plot on join: it sets `OwnerUserId` and `OwnerName` on `PlotN`, sets `PlotId` on the Player, and updates the sign with the display name and a headshot (fetched asynchronously). On leave it releases the plot, resets the sign and relocks the extra core slots.
+  API: `GetPlot`, `GetPlotById`, `GetOwnerUserId`, `GetBaseSpawnCFrame`, `GetCoreSlots`, `GetDefenseSlots`, `SetUnlockedCoreSlots(plotId, n)` (8 → 24, lights the pedestals), `IsInsideBase(plotId, pos)`, plus the events `PlotAssigned` and `PlotReleased`.
+* **TeleportPadService** handles every **`TeleportPad`** based on its `Destination`: `"Hub"`, `"Base"` or `"Biome:<Name>"` (the last one is ready for the Navigation step). A seated player's whole vehicle under `Workspace.Vehicles` is moved. It calls `RequestStreamAroundAsync` before moving so the destination is loaded when you arrive. There is a 3 s per-player cooldown, and players arrive *beside* pads rather than on them, so they don't bounce back. API: `Teleport(player, destination)`, `TeleportToCFrame(player, cf)`.
+* **ServicesLoader** (Script) requires every ModuleScript in `Services`, calls `Init` on all of them (BaseService first), then `Start` on all. If Phase 1 already has a loader, skip it.
+
+### Setup
+1. Run **BaseTemplateBuilder** (above). The template must exist before you press Play.
+2. Check that `Workspace > Bases > Plot1…Plot8` exist. They're created if missing, and a Folder is converted to a Model.
+3. Add ModuleScripts `BaseService` and `TeleportPadService` to `ServerScriptService > Services`.
+4. Add the Script `ServicesLoader` to `ServerScriptService` (skip it if you already have a loader).
+5. **Game Settings → Places → Max Players = 8** (one plot per player).
+
+### Test
+1. **Play Solo:** the Output shows `[BaseService] 8 plots ready` and `[ServicesLoader] Services started`. Walk to the plot east of the road (Plot1 or Plot8). One of them should show your name and headshot on the claim sign.
+2. In the server Command Bar, run `print(game.Players:GetPlayers()[1]:GetAttribute("PlotId"))`. It should print a number from 1 to 8.
+3. Step on **MY BASE** in the Hub. You should arrive inside your base facing the rack. Step on **TO HUB** in the base and you should arrive next to the spawn.
+4. **Test → Clients and Servers → 3 players:** each player should get a different plot. Close one client and that plot's sign should go back to "Free Plot!".
+5. In the server Command Bar, run `local BS = require(game.ServerScriptService.Services.BaseService); BS.SetUnlockedCoreSlots(1, 16)`. Plot1 should light 16 cyan pedestals.
+6. Sit in any vehicle model placed under `Workspace.Vehicles` and drive onto a pad. The whole vehicle should teleport.

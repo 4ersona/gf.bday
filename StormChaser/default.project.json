@@ -11,10 +11,21 @@
         }
       }
     },
+    "ServerScriptService": {
+      "ServicesLoader": { "$path": "src/ServerScriptService/ServicesLoader.server.luau" },
+      "Services": {
+        "$className": "Folder",
+        "BaseService": { "$path": "src/ServerScriptService/Services/BaseService.luau" },
+        "TeleportPadService": { "$path": "src/ServerScriptService/Services/TeleportPadService.luau" }
+      }
+    },
     "ServerStorage": {
       "DevTools": {
         "$className": "Folder",
-        "TerrainGenerator": { "$path": "src/ServerStorage/DevTools/TerrainGenerator.luau" }
+        "BuildKit": { "$path": "src/ServerStorage/DevTools/BuildKit.luau" },
+        "TerrainGenerator": { "$path": "src/ServerStorage/DevTools/TerrainGenerator.luau" },
+        "HubGenerator": { "$path": "src/ServerStorage/DevTools/HubGenerator.luau" },
+        "BaseTemplateBuilder": { "$path": "src/ServerStorage/DevTools/BaseTemplateBuilder.luau" }
       }
     }
   }
