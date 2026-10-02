@@ -1,0 +1,17 @@
+{
+  "name": "Footer group",
+  "type": "footer",
+  "sections": {
+    "footer": {
+      "type": "footer",
+      "blocks": {
+        "about": { "type": "brand", "settings": { "text": "Everyday beauty tools for hair, makeup and skin. Chosen to make your routine easier and your counter tidier." } },
+        "shop": { "type": "menu", "settings": { "heading": "Shop", "menu": "footer" } },
+        "help": { "type": "menu", "settings": { "heading": "Help", "menu": "footer-help" } }
+      },
+      "block_order": ["about", "shop", "help"],
+      "settings": { "show_newsletter": true, "show_localization": true, "show_payment_icons": true }
+    }
+  },
+  "order": ["footer"]
+}

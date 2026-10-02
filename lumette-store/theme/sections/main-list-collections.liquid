@@ -1,0 +1,21 @@
+<div class="page-width section">
+  <h1>{{ 'general.shop_now' | t }}</h1>
+  <ul class="grid grid--collections">
+    {%- for c in collections -%}
+      {%- unless c.handle == 'frontpage' or c.handle == 'all' -%}
+      <li class="collection-tile">
+        <div class="card">
+          <div class="card__media">
+            {%- assign img = c.image | default: c.products.first.featured_image -%}
+            {%- if img != blank -%}{% render 'responsive-image', image: img, fallback_alt: c.title, sizes: '(min-width: 750px) 33vw, 50vw' %}{%- else -%}<div class="card__placeholder">{% render 'icon', name: 'sparkle' %}</div>{%- endif -%}
+          </div>
+          <h2 class="card__title"><a href="{{ c.url }}">{{ c.title | escape }}</a></h2>
+        </div>
+      </li>
+      {%- endunless -%}
+    {%- endfor -%}
+  </ul>
+</div>
+{% schema %}
+{ "name": "Collection list page", "settings": [] }
+{% endschema %}

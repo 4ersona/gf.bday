@@ -1,0 +1,29 @@
+{%- comment -%} Shared line-item markup for the drawer and /cart. {%- endcomment -%}
+{%- for item in cart.items -%}
+  <div class="line" data-line data-line-key="{{ item.key }}">
+    <a class="line__img" href="{{ item.url }}" tabindex="-1" aria-hidden="true">
+      {%- if item.image -%}<img src="{{ item.image | image_url: width: 160 }}" alt="" width="72" height="72" loading="lazy">{%- endif -%}
+    </a>
+    <div>
+      <a class="line__title" href="{{ item.url }}">{{ item.product.title | escape }}</a>
+      {%- unless item.product.has_only_default_variant -%}
+        <div class="line__meta">{{ item.variant.title | escape }}</div>
+      {%- endunless -%}
+      {%- for discount in item.line_level_discount_allocations -%}
+        <div class="line__meta">{{ discount.discount_application.title }} (-{{ discount.amount | money }})</div>
+      {%- endfor -%}
+      <div class="line__actions">
+        <div class="qty">
+          <button type="button" data-qty-step="-1" aria-label="{{ 'product.decrease_quantity' | t }}">&minus;</button>
+          <input type="number" min="0" value="{{ item.quantity }}" aria-label="{{ 'product.quantity' | t }}: {{ item.product.title | escape }}" inputmode="numeric">
+          <button type="button" data-qty-step="1" aria-label="{{ 'product.increase_quantity' | t }}">+</button>
+        </div>
+        <button type="button" class="line__remove" data-line-remove data-line-key="{{ item.key }}" aria-label="{{ 'cart.remove' | t: title: item.product.title }}">{{ 'cart.remove' | t: title: '' | strip }}</button>
+      </div>
+    </div>
+    <div class="price"><span class="visually-hidden">{{ 'cart.line_total' | t }}</span>
+      {%- if item.original_line_price != item.final_line_price -%}<s>{{ item.original_line_price | money }}</s>{%- endif -%}
+      {{ item.final_line_price | money }}
+    </div>
+  </div>
+{%- endfor -%}

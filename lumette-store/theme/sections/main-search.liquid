@@ -1,0 +1,27 @@
+<div class="page-width section">
+  <h1>{{ 'search.title' | t }}</h1>
+  <form action="{{ routes.search_url }}" method="get" role="search" class="inline-form" style="margin-bottom:2rem">
+    <label class="visually-hidden" for="SearchInput">{{ 'general.search' | t }}</label>
+    <input class="field__input" id="SearchInput" type="search" name="q" value="{{ search.terms | escape }}" placeholder="{{ 'general.search_placeholder' | t }}">
+    <input type="hidden" name="type" value="product">
+    <button class="button" type="submit">{{ 'search.button' | t }}</button>
+  </form>
+  {%- if search.performed -%}
+    {%- paginate search.results by 24 -%}
+      {%- if search.results_count > 0 -%}
+        <p>{{ 'search.results_for' | t: count: search.results_count, terms: search.terms }}</p>
+        <ul class="grid grid--4">
+          {%- for item in search.results -%}
+            <li>{%- if item.object_type == 'product' -%}{% render 'product-card', product: item %}{%- else -%}<a href="{{ item.url }}">{{ item.title | escape }}</a>{%- endif -%}</li>
+          {%- endfor -%}
+        </ul>
+        {% render 'pagination', paginate: paginate %}
+      {%- else -%}
+        <p>{{ 'search.no_results' | t: terms: search.terms }}</p>
+      {%- endif -%}
+    {%- endpaginate -%}
+  {%- endif -%}
+</div>
+{% schema %}
+{ "name": "Search", "settings": [] }
+{% endschema %}

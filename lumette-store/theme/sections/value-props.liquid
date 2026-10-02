@@ -1,0 +1,30 @@
+<div class="page-width" style="padding-top:24px" {{ section.shopify_attributes }}>
+  <ul class="value-props" style="list-style:none;margin:0">
+    {%- for block in section.blocks -%}
+      <li {{ block.shopify_attributes }}>
+        {% render 'icon', name: block.settings.icon %}
+        <h3>{{ block.settings.title | escape }}</h3>
+        <p>{{ block.settings.text | escape }}</p>
+      </li>
+    {%- endfor -%}
+  </ul>
+</div>
+{% schema %}
+{
+  "name": "Brand promise bar",
+  "max_blocks": 4,
+  "blocks": [
+    {
+      "type": "prop", "name": "Promise",
+      "settings": [
+        { "type": "select", "id": "icon", "label": "Icon", "default": "sparkle", "options": [
+          { "value": "sparkle", "label": "Sparkle" }, { "value": "truck", "label": "Delivery" }, { "value": "return", "label": "Returns" }, { "value": "lock", "label": "Secure" }, { "value": "support", "label": "Support" }, { "value": "check", "label": "Check" }
+        ] },
+        { "type": "text", "id": "title", "label": "Title", "default": "Made for real routines" },
+        { "type": "textarea", "id": "text", "label": "Text", "default": "Practical tools for hair, makeup and skin." }
+      ]
+    }
+  ],
+  "presets": [{ "name": "Brand promise bar" }]
+}
+{% endschema %}

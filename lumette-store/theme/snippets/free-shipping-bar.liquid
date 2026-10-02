@@ -1,0 +1,30 @@
+{%- comment -%}
+  Real progress toward the free-shipping rate configured in Shopify Settings > Shipping.
+  Threshold comes from theme settings per presentment currency; keep both in sync with your shipping rates.
+{%- endcomment -%}
+{%- liquid
+  assign cur = cart.currency.iso_code
+  assign threshold = settings.free_ship_usd
+  if cur == 'CAD'
+    assign threshold = settings.free_ship_cad
+  endif
+  assign threshold_cents = threshold | times: 100
+  assign subtotal = cart.items_subtotal_price
+  assign remaining = threshold_cents | minus: subtotal
+  assign pct = subtotal | times: 100 | divided_by: threshold_cents
+  if pct > 100
+    assign pct = 100
+  endif
+-%}
+{%- if threshold_cents > 0 -%}
+  <div class="ship-bar{% if remaining <= 0 and cart.item_count > 0 %} is-unlocked{% endif %}" role="status" data-ship-bar>
+    {%- if cart.item_count == 0 -%}
+      {{ 'announcement.free_shipping' | t: amount: threshold_cents | money_without_trailing_zeros }}
+    {%- elsif remaining <= 0 -%}
+      <strong>{{ 'cart.free_shipping_unlocked' | t }}</strong>
+    {%- else -%}
+      {{ 'cart.free_shipping_away' | t: amount: remaining | money_without_trailing_zeros }}
+    {%- endif -%}
+    <div class="ship-bar__track" aria-hidden="true"><div class="ship-bar__fill" style="width:{{ pct }}%"></div></div>
+  </div>
+{%- endif -%}

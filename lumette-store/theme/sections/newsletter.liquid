@@ -1,0 +1,31 @@
+<section class="section bg-blush" {{ section.shopify_attributes }}>
+  <div class="page-width text-center stack" style="max-width:40rem">
+    <h2>{{ section.settings.heading }}</h2>
+    <p>{{ section.settings.text }}</p>
+    {%- form 'customer', id: 'SectionNewsletter' -%}
+      <input type="hidden" name="contact[tags]" value="newsletter,homepage">
+      {%- if form.posted_successfully? -%}
+        <p class="form-message form-message--success" role="status">{{ 'newsletter.success' | t }}</p>
+      {%- else -%}
+        {%- if form.errors -%}<p class="form-message form-message--error" role="alert">{{ 'newsletter.error' | t }}</p>{%- endif -%}
+        <label class="visually-hidden" for="NewsletterEmail-{{ section.id }}">{{ 'newsletter.email_label' | t }}</label>
+        <div class="inline-form">
+          <input class="field__input" type="email" id="NewsletterEmail-{{ section.id }}" name="contact[email]" autocomplete="email" required placeholder="{{ 'newsletter.email_placeholder' | t }}">
+          <button class="button" type="submit">{{ section.settings.button }}</button>
+        </div>
+        <p style="font-size:.85rem;color:var(--color-ink-soft);margin-top:.75rem">{{ 'newsletter.consent' | t }}</p>
+      {%- endif -%}
+    {%- endform -%}
+  </div>
+</section>
+{% schema %}
+{
+  "name": "Email signup",
+  "settings": [
+    { "type": "text", "id": "heading", "label": "Heading", "default": "10% off your first order" },
+    { "type": "textarea", "id": "text", "label": "Text", "default": "Join the list for your welcome code, new arrivals and simple routines worth trying. We email a couple of times a month, never more." },
+    { "type": "text", "id": "button", "label": "Button label", "default": "Send my code" }
+  ],
+  "presets": [{ "name": "Email signup" }]
+}
+{% endschema %}

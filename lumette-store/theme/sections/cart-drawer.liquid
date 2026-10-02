@@ -1,0 +1,36 @@
+<div class="drawer-overlay" data-drawer-overlay></div>
+<aside class="cart-drawer" data-cart-drawer data-cart-region role="dialog" aria-modal="true" aria-label="{{ 'cart.title' | t }}" aria-hidden="true">
+  <div data-drawer-inner style="display:flex;flex-direction:column;height:100%">
+    <span data-cart-count-source="{{ cart.item_count }}" hidden></span>
+    <div class="cart-drawer__head">
+      <h2>{{ 'cart.title' | t }} <span class="visually-hidden">({{ 'general.cart_items' | t: count: cart.item_count }})</span></h2>
+      <button type="button" class="icon-button" data-drawer-close aria-label="{{ 'general.close' | t }}">{% render 'icon', name: 'close' %}</button>
+    </div>
+    <div class="cart-drawer__body">
+      {% render 'free-shipping-bar' %}
+      <p class="form-message form-message--error" data-cart-error role="alert" hidden></p>
+      {%- if cart.item_count == 0 -%}
+        <div class="cart-empty">
+          <p class="h3">{{ 'cart.empty' | t }}</p>
+          <p>{{ 'cart.empty_help' | t }}</p>
+          <a class="button" href="{{ routes.all_products_collection_url }}" data-drawer-close>{{ 'general.continue_shopping' | t }}</a>
+        </div>
+      {%- else -%}
+        {% render 'cart-lines' %}
+      {%- endif -%}
+    </div>
+    {%- if cart.item_count > 0 -%}
+      <div class="cart-drawer__foot">
+        <div class="totals"><span>{{ 'cart.subtotal' | t }}</span><span>{{ cart.total_price | money }}</span></div>
+        <p style="font-size:.85rem;color:var(--color-ink-soft)">{{ 'cart.shipping_taxes' | t }}</p>
+        <form action="{{ routes.cart_url }}" method="post">
+          <button class="button button--full" type="submit" name="checkout">{{ 'cart.checkout' | t }}</button>
+        </form>
+        <p style="text-align:center;margin:.75rem 0 0"><a href="{{ routes.cart_url }}">{{ 'cart.view_cart' | t }}</a></p>
+      </div>
+    {%- endif -%}
+  </div>
+</aside>
+{% schema %}
+{ "name": "Cart drawer", "settings": [] }
+{% endschema %}

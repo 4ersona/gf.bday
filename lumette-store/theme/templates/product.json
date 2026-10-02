@@ -1,0 +1,77 @@
+{
+  "sections": {
+    "main": {
+      "type": "main-product",
+      "settings": {}
+    },
+    "reviews": {
+      "type": "reviews",
+      "settings": {
+        "heading": "Customer reviews"
+      }
+    },
+    "faq": {
+      "type": "faq",
+      "blocks": {
+        "q1": {
+          "type": "item",
+          "settings": {
+            "question": "How long will delivery take?",
+            "answer": "<p>Delivery windows are shown on every product page and are counted in business days from the day you order. Most items ship from our fulfilment partner's warehouse in China and arrive in about 8-18 business days. Items that ship from a US or Canadian warehouse are marked as such and are usually faster. These are estimates, not guarantees.</p>"
+          }
+        },
+        "q2": {
+          "type": "item",
+          "settings": {
+            "question": "Can I track my order?",
+            "answer": "<p>Yes. We email a tracking number once your order ships. New tracking numbers can take 2-5 days to show movement. You can also use our <a href=\"/pages/track-your-order\">Track your order</a> page.</p>"
+          }
+        },
+        "q3": {
+          "type": "item",
+          "settings": {
+            "question": "What if it arrives damaged or isn't right?",
+            "answer": "<p>Contact us within 30 days of delivery with your order number and a photo, and we'll make it right with a replacement or refund. See our <a href=\"/policies/refund-policy\">Returns and Refunds policy</a> for the details.</p>"
+          }
+        },
+        "q4": {
+          "type": "item",
+          "settings": {
+            "question": "Can I return it if I change my mind?",
+            "answer": "<p>Unused items in their original packaging can be returned within 30 days of delivery. Return shipping for change-of-mind returns is paid by the customer. Full details are in our Returns and Refunds policy.</p>"
+          }
+        },
+        "q5": {
+          "type": "item",
+          "settings": {
+            "question": "Is checkout secure?",
+            "answer": "<p>Yes. Checkout is run by Shopify and your payment details are encrypted. We never see or store your full card number.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "q1",
+        "q2",
+        "q3",
+        "q4",
+        "q5"
+      ],
+      "settings": {
+        "heading": "Frequently asked questions"
+      }
+    },
+    "related": {
+      "type": "related-products",
+      "settings": {
+        "heading": "You may also like",
+        "limit": 4
+      }
+    }
+  },
+  "order": [
+    "main",
+    "reviews",
+    "faq",
+    "related"
+  ]
+}

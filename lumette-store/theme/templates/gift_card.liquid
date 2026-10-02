@@ -1,0 +1,19 @@
+<!doctype html>
+<html lang="{{ request.locale.iso_code }}">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{{ 'gift_card.heading' | t }} - {{ shop.name }}</title>
+    <link rel="stylesheet" href="{{ 'theme.css' | asset_url }}">
+    {{ content_for_header }}
+  </head>
+  <body style="--color-bg:{{ settings.color_bg }};--color-ink:{{ settings.color_ink }};--color-accent:{{ settings.color_accent }};--color-surface:{{ settings.color_surface }};--color-line:{{ settings.color_line }};--font-body:{{ settings.font_body.family }},sans-serif;--font-heading:{{ settings.font_heading.family }},serif;--body-size:16px">
+    <main class="page-width section stack" style="max-width:32rem;text-align:center">
+      <p class="wordmark">{{ shop.name }}</p>
+      <h1 class="h2">{{ 'gift_card.heading' | t }}</h1>
+      <p class="h1">{{ gift_card.balance | money }}</p>
+      <p><strong>{{ gift_card.code | format_code }}</strong></p>
+      <a class="button" href="{{ shop.url }}">{{ 'general.shop_now' | t }}</a>
+    </main>
+  </body>
+</html>

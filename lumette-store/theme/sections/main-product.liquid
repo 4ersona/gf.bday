@@ -1,0 +1,188 @@
+{%- liquid
+  assign current = product.selected_or_first_available_variant
+  assign origin = product.metafields.custom.shipping_origin.value | downcase
+  assign est_min = settings.ship_cn_min
+  assign est_max = settings.ship_cn_max
+  assign origin_key = 'product.ships_from_cn'
+  if origin == 'us'
+    assign est_min = settings.ship_us_min
+    assign est_max = settings.ship_us_max
+    assign origin_key = 'product.ships_from_us'
+  elsif origin == 'ca'
+    assign est_min = settings.ship_ca_min
+    assign est_max = settings.ship_ca_max
+    assign origin_key = 'product.ships_from_ca'
+  endif
+  assign cur = cart.currency.iso_code
+  assign threshold = settings.free_ship_usd
+  if cur == 'CAD'
+    assign threshold = settings.free_ship_cad
+  endif
+  assign threshold_money = threshold | times: 100 | money_without_trailing_zeros
+  assign benefits = product.metafields.custom.benefits.value
+-%}
+
+<div class="page-width" data-product-section data-section-id="{{ section.id }}">
+  <nav class="breadcrumb" aria-label="{{ 'general.breadcrumb' | t }}">
+    <ol>
+      <li><a href="{{ routes.root_url }}">{{ 'general.home' | t }}</a></li>
+      {%- if collection -%}<li><a href="{{ collection.url }}">{{ collection.title | escape }}</a></li>{%- endif -%}
+      <li aria-current="page">{{ product.title | escape }}</li>
+    </ol>
+  </nav>
+
+  <div class="product">
+    <div class="gallery" role="region" aria-roledescription="carousel" aria-label="{{ 'product.gallery' | t }}">
+      <div class="gallery__main">
+        <div class="gallery__slides" data-gallery-slides tabindex="0">
+          {%- for media in product.media -%}
+            <div class="gallery__slide" data-media-id="{{ media.id }}">
+              {%- case media.media_type -%}
+                {%- when 'image' -%}
+                  {%- if forloop.first -%}
+                    {% render 'responsive-image', image: media, sizes: '(min-width: 990px) 55vw, 100vw', widths: '540,720,900,1200,1600', loading: 'eager', fetchpriority: 'high', fallback_alt: product.title %}
+                  {%- else -%}
+                    {% render 'responsive-image', image: media, sizes: '(min-width: 990px) 55vw, 100vw', widths: '540,720,900,1200,1600', loading: 'lazy', fallback_alt: product.title %}
+                  {%- endif -%}
+                {%- when 'video' -%}
+                  {{ media | video_tag: image_size: '1100x', controls: true, loop: false, muted: false, preload: 'none' }}
+                {%- when 'external_video' -%}
+                  {{ media | external_video_tag }}
+                {%- else -%}
+                  {% render 'responsive-image', image: media.preview_image, sizes: '(min-width: 990px) 55vw, 100vw', fallback_alt: product.title %}
+              {%- endcase -%}
+            </div>
+          {%- else -%}
+            <div class="gallery__slide"><div class="card__placeholder">{% render 'icon', name: 'sparkle' %}</div></div>
+          {%- endfor -%}
+        </div>
+      </div>
+      {%- if product.media.size > 1 -%}
+        <div class="gallery__thumbs">
+          {%- for media in product.media -%}
+            <button type="button" class="gallery__thumb" data-thumb aria-current="{% if forloop.first %}true{% else %}false{% endif %}" aria-label="{{ 'product.view_image' | t: index: forloop.index, total: product.media.size }}">
+              <img src="{{ media.preview_image | image_url: width: 160, height: 160, crop: 'center' }}" alt="" width="68" height="68" loading="lazy">
+            </button>
+          {%- endfor -%}
+        </div>
+      {%- endif -%}
+    </div>
+
+    <div class="product__info stack">
+      <h1 class="product__title">{{ product.title | escape }}</h1>
+
+      {%- for block in section.blocks -%}
+        {%- if block.type == '@app' -%}<div {{ block.shopify_attributes }}>{% render block %}</div>{%- endif -%}
+      {%- endfor -%}
+
+      <div class="product__price" data-price-wrap>{% render 'price', product: product, use_variant: current %}</div>
+      <p style="font-size:.85rem;color:var(--color-ink-soft);margin-top:-.75rem">{{ 'general.price_tax_note' | t }}</p>
+
+      {%- if section.settings.show_short_description and product.metafields.custom.short_description != blank -%}
+        <p>{{ product.metafields.custom.short_description.value | escape }}</p>
+      {%- endif -%}
+
+      {%- if benefits != blank -%}
+        <ul class="benefits" aria-label="{{ 'product.benefits' | t }}">
+          {%- for b in benefits -%}<li>{% render 'icon', name: 'check' %}<span>{{ b | escape }}</span></li>{%- endfor -%}
+        </ul>
+      {%- endif -%}
+
+      {%- form 'product', product, id: 'ProductForm', data-product-form: '', novalidate: 'novalidate' -%}
+        <input type="hidden" name="id" value="{{ current.id }}">
+
+        {%- unless product.has_only_default_variant -%}
+          {%- for option in product.options_with_values -%}
+            <fieldset class="option-group" data-option-group>
+              <legend>{{ option.name | escape }}</legend>
+              <div class="pills">
+                {%- for value in option.values -%}
+                  <div class="pill">
+                    <input type="radio" id="opt-{{ section.id }}-{{ option.position }}-{{ forloop.index }}" name="option-{{ option.position }}" value="{{ value | escape }}" {% if option.selected_value == value %}checked{% endif %}>
+                    <label for="opt-{{ section.id }}-{{ option.position }}-{{ forloop.index }}">{{ value | escape }}</label>
+                  </div>
+                {%- endfor -%}
+              </div>
+            </fieldset>
+          {%- endfor -%}
+        {%- endunless -%}
+
+        <div class="buy-row">
+          <div class="qty">
+            <button type="button" data-qty-step="-1" aria-label="{{ 'product.decrease_quantity' | t }}">&minus;</button>
+            <input type="number" name="quantity" value="1" min="1" max="99" inputmode="numeric" aria-label="{{ 'product.quantity' | t }}">
+            <button type="button" data-qty-step="1" aria-label="{{ 'product.increase_quantity' | t }}">+</button>
+          </div>
+          <button type="submit" class="button" data-add-button data-main-add {% unless current.available %}disabled aria-disabled="true"{% endunless %}>
+            {%- if current.available -%}{{ 'product.add_to_cart' | t }}{%- else -%}{{ 'product.sold_out' | t }}{%- endif -%}
+          </button>
+        </div>
+        <p class="form-message form-message--error" data-form-error role="alert" hidden></p>
+      {%- endform -%}
+      <input type="hidden" data-product-url value="{{ product.url }}">
+
+      {%- if section.settings.show_shipping_box -%}
+        <div class="ship-box">
+          <div><strong>{{ 'product.delivery_estimate' | t }}: <span data-estimate data-min="{{ est_min }}" data-max="{{ est_max }}">{{ est_min }}-{{ est_max }}</span></strong></div>
+          <small>{{ origin_key | t }}.</small>
+          <small>{{ 'product.delivery_estimate_note' | t: min: est_min, max: est_max }}</small>
+          {%- if threshold > 0 -%}<div>{% render 'icon', name: 'truck' %} {{ 'product.free_shipping_note' | t: amount: threshold_money }}</div>{%- endif -%}
+          <div>{{ 'product.returns_note' | t: days: settings.returns_days }}</div>
+        </div>
+      {%- endif -%}
+
+      <div class="accordion">
+        {%- if product.description != blank -%}
+          <details open><summary>{{ 'product.details' | t }}</summary><div class="acc__body rte">{{ product.description }}</div></details>
+        {%- endif -%}
+        {%- if product.metafields.custom.how_to_use != blank -%}
+          <details><summary>{{ 'product.how_to_use' | t }}</summary><div class="acc__body rte">{{ product.metafields.custom.how_to_use | metafield_tag }}</div></details>
+        {%- endif -%}
+        {%- if product.metafields.custom.whats_included != blank -%}
+          <details><summary>{{ 'product.whats_included' | t }}</summary><div class="acc__body rte">{{ product.metafields.custom.whats_included | metafield_tag }}</div></details>
+        {%- endif -%}
+        {%- if product.metafields.custom.specs != blank -%}
+          <details><summary>{{ 'product.specs' | t }}</summary><div class="acc__body rte">{{ product.metafields.custom.specs | metafield_tag }}</div></details>
+        {%- endif -%}
+        {%- if section.settings.shipping_page != blank -%}
+          <details><summary>{{ 'product.shipping_returns' | t }}</summary>
+            <div class="acc__body rte">
+              <p>{{ 'product.delivery_estimate_note' | t: min: est_min, max: est_max }}</p>
+              <p>{{ 'product.returns_note' | t: days: settings.returns_days }}</p>
+              <p><a href="{{ section.settings.shipping_page.url }}">{{ 'general.learn_more' | t }}</a></p>
+            </div>
+          </details>
+        {%- endif -%}
+      </div>
+      <p style="font-size:.85rem;color:var(--color-ink-soft)" data-sku-wrap>{%- if current.sku != blank -%}{{ 'product.sku' | t }}: <span data-sku>{{ current.sku }}</span>{%- endif -%}</p>
+    </div>
+  </div>
+
+  <script type="application/json" data-variants>
+    [{%- for v in product.variants -%}{"id":{{ v.id }},"options":{{ v.options | json }},"available":{{ v.available | json }},"featured_media_id":{{ v.featured_media.id | default: 'null' }}}{% unless forloop.last %},{% endunless %}{%- endfor -%}]
+  </script>
+</div>
+
+{%- if section.settings.show_sticky_atc -%}
+  <div class="sticky-atc" data-sticky-atc>
+    <div class="sticky-atc__info">
+      <div class="sticky-atc__title">{{ product.title | escape }}</div>
+      <div data-sticky-price>{% render 'price', product: product, use_variant: current %}</div>
+    </div>
+    <button type="button" class="button" data-sticky-button data-add-button {% unless current.available %}disabled aria-disabled="true"{% endunless %}>
+      {%- if current.available -%}{{ 'product.add_to_cart' | t }}{%- else -%}{{ 'product.sold_out' | t }}{%- endif -%}
+    </button>
+  </div>
+{%- endif -%}
+{% schema %}
+{
+  "name": "Product",
+  "settings": [
+    { "type": "checkbox", "id": "show_short_description", "label": "Show short description (metafield custom.short_description)", "default": true },
+    { "type": "checkbox", "id": "show_shipping_box", "label": "Show delivery estimate", "default": true },
+    { "type": "checkbox", "id": "show_sticky_atc", "label": "Sticky add-to-cart on mobile", "default": true },
+    { "type": "page", "id": "shipping_page", "label": "Shipping & returns page (links from the accordion)" }
+  ],
+  "blocks": [{ "type": "@app" }]
+}
+{% endschema %}

@@ -1,0 +1,20 @@
+<section class="section {% if section.settings.background == 'surface' %}bg-surface{% elsif section.settings.background == 'blush' %}bg-blush{% endif %}" {{ section.shopify_attributes }}>
+  <div class="page-width">
+    <div class="prose rte{% if section.settings.center %} text-center{% endif %}" {% if section.settings.center %}style="margin-inline:auto"{% endif %}>
+      {%- if section.settings.heading != blank -%}<h2>{{ section.settings.heading }}</h2>{%- endif -%}
+      {{ section.settings.text }}
+    </div>
+  </div>
+</section>
+{% schema %}
+{
+  "name": "Rich text",
+  "settings": [
+    { "type": "text", "id": "heading", "label": "Heading" },
+    { "type": "richtext", "id": "text", "label": "Text" },
+    { "type": "checkbox", "id": "center", "label": "Center", "default": false },
+    { "type": "select", "id": "background", "label": "Background", "default": "none", "options": [{ "value": "none", "label": "Page" }, { "value": "surface", "label": "Sand" }, { "value": "blush", "label": "Blush" }] }
+  ],
+  "presets": [{ "name": "Rich text" }]
+}
+{% endschema %}

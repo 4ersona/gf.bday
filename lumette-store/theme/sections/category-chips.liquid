@@ -1,0 +1,19 @@
+<nav class="page-width" style="padding-top:16px;padding-bottom:8px" aria-label="{{ 'home.shop_by_category' | t }}" {{ section.shopify_attributes }}>
+  <ul class="chips">
+    {%- for block in section.blocks -%}
+      {%- if block.settings.collection != blank -%}
+        <li {{ block.shopify_attributes }}><a href="{{ block.settings.collection.url }}">{{ block.settings.collection.title | escape }}</a></li>
+      {%- endif -%}
+    {%- endfor -%}
+  </ul>
+</nav>
+{% schema %}
+{
+  "name": "Category chips",
+  "max_blocks": 8,
+  "blocks": [
+    { "type": "chip", "name": "Collection", "settings": [{ "type": "collection", "id": "collection", "label": "Collection" }] }
+  ],
+  "presets": [{ "name": "Category chips", "blocks": [{ "type": "chip" }, { "type": "chip" }, { "type": "chip" }, { "type": "chip" }, { "type": "chip" }, { "type": "chip" }] }]
+}
+{% endschema %}

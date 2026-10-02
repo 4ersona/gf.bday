@@ -1,0 +1,101 @@
+[
+  {
+    "name": "theme_info",
+    "theme_name": "Lumette",
+    "theme_author": "Lumette",
+    "theme_version": "1.0.0",
+    "theme_documentation_url": "https://github.com/4ersona/gf.bday/tree/main/lumette-store/docs",
+    "theme_support_url": "https://github.com/4ersona/gf.bday/issues"
+  },
+  {
+    "name": "Brand",
+    "settings": [
+      { "type": "text", "id": "brand_name", "label": "Brand name (used in the wordmark and SEO titles)", "default": "Lumette" },
+      { "type": "text", "id": "brand_tagline", "label": "Short tagline", "default": "Beauty tools for every routine" },
+      { "type": "image_picker", "id": "logo_image", "label": "Logo image (optional - replaces the text wordmark)" },
+      { "type": "range", "id": "logo_width", "min": 80, "max": 240, "step": 10, "unit": "px", "label": "Logo image width", "default": 140 },
+      { "type": "image_picker", "id": "favicon", "label": "Favicon (PNG, 32x32 or larger)" },
+      { "type": "image_picker", "id": "share_image", "label": "Default social sharing image (1200x630)" }
+    ]
+  },
+  {
+    "name": "Colors",
+    "settings": [
+      { "type": "color", "id": "color_bg", "label": "Background", "default": "#FBF7F2" },
+      { "type": "color", "id": "color_surface", "label": "Surface (panels)", "default": "#F4E9E1" },
+      { "type": "color", "id": "color_blush", "label": "Blush (highlights)", "default": "#F2D9D2" },
+      { "type": "color", "id": "color_ink", "label": "Text", "default": "#2A2220" },
+      { "type": "color", "id": "color_ink_soft", "label": "Secondary text", "default": "#5B4D47" },
+      { "type": "color", "id": "color_accent", "label": "Accent / primary button (white text sits on this - keep contrast 4.5:1+)", "default": "#8F3A4B" },
+      { "type": "color", "id": "color_accent_hover", "label": "Accent hover", "default": "#742E3C" },
+      { "type": "color", "id": "color_sage", "label": "Success / free-shipping green", "default": "#3F5C4D" },
+      { "type": "color", "id": "color_line", "label": "Borders", "default": "#E6D8CE" }
+    ]
+  },
+  {
+    "name": "Typography",
+    "settings": [
+      { "type": "font_picker", "id": "font_heading", "label": "Headings", "default": "playfair_display_n4" },
+      { "type": "font_picker", "id": "font_body", "label": "Body", "default": "assistant_n4" },
+      { "type": "range", "id": "body_size", "min": 15, "max": 18, "step": 1, "unit": "px", "label": "Body size", "default": 16 }
+    ]
+  },
+  {
+    "name": "Shipping & delivery messaging",
+    "settings": [
+      { "type": "paragraph", "content": "These numbers are shown to shoppers. Set them from CJdropshipping's real shipping estimates for the lines you actually use, and re-check them every month. They must match the free-shipping rate you create in Shopify Settings > Shipping." },
+      { "type": "number", "id": "free_ship_usd", "label": "Free shipping threshold - USD", "default": 50 },
+      { "type": "number", "id": "free_ship_cad", "label": "Free shipping threshold - CAD", "default": 65 },
+      { "type": "header", "content": "Delivery windows (business days, processing + transit)" },
+      { "type": "number", "id": "ship_cn_min", "label": "Ships from China - minimum", "default": 8 },
+      { "type": "number", "id": "ship_cn_max", "label": "Ships from China - maximum", "default": 18 },
+      { "type": "number", "id": "ship_us_min", "label": "Ships from a US warehouse - minimum", "default": 3 },
+      { "type": "number", "id": "ship_us_max", "label": "Ships from a US warehouse - maximum", "default": 8 },
+      { "type": "number", "id": "ship_ca_min", "label": "Ships from a Canadian warehouse - minimum", "default": 3 },
+      { "type": "number", "id": "ship_ca_max", "label": "Ships from a Canadian warehouse - maximum", "default": 9 },
+      { "type": "paragraph", "content": "Set the product metafield custom.shipping_origin to cn, us or ca. Products without it use the China window (the conservative one)." },
+      { "type": "text", "id": "returns_days", "label": "Return window (days) shown in messaging", "default": "30" }
+    ]
+  },
+  {
+    "name": "Cart",
+    "settings": [
+      { "type": "checkbox", "id": "cart_drawer", "label": "Use slide-out cart drawer", "default": true },
+      { "type": "checkbox", "id": "show_cart_note", "label": "Show order note field in cart", "default": false }
+    ]
+  },
+  {
+    "name": "Email popup & welcome offer",
+    "settings": [
+      { "type": "checkbox", "id": "popup_enabled", "label": "Enable email popup", "default": true },
+      { "type": "range", "id": "popup_delay", "min": 5, "max": 60, "step": 1, "unit": "s", "label": "Show after", "default": 12 },
+      { "type": "range", "id": "popup_cooldown", "min": 1, "max": 60, "step": 1, "unit": "days", "label": "Do not show again for", "default": 14 },
+      { "type": "text", "id": "popup_heading", "label": "Heading", "default": "Take 10% off your first order" },
+      { "type": "textarea", "id": "popup_text", "label": "Text", "default": "Join our list and we'll email your welcome code, plus new arrivals and routines worth trying. No spam, unsubscribe any time." },
+      { "type": "text", "id": "popup_button", "label": "Button label", "default": "Email me my code" },
+      { "type": "textarea", "id": "popup_consent", "label": "Consent line (shown under the button)", "default": "By subscribing you agree to receive marketing emails from us. You can unsubscribe at any time using the link in every email. See our Privacy Policy." },
+      { "type": "text", "id": "popup_success", "label": "Success message", "default": "You're on the list! Check your inbox (and spam folder) for your welcome code." },
+      { "type": "image_picker", "id": "popup_image", "label": "Popup image (optional)" }
+    ]
+  },
+  {
+    "name": "Tracking (Google)",
+    "settings": [
+      { "type": "paragraph", "content": "Use EITHER the Google & YouTube Shopify app OR these hooks - never both, or conversions are counted twice. Leave this off if you use the app. See docs/03-seo-and-ads.md." },
+      { "type": "checkbox", "id": "tracking_enabled", "label": "Enable theme tracking hooks", "default": false },
+      { "type": "text", "id": "ga4_id", "label": "GA4 measurement ID", "info": "Looks like G-XXXXXXXXXX" },
+      { "type": "text", "id": "gads_id", "label": "Google Ads conversion ID", "info": "Looks like AW-XXXXXXXXX" },
+      { "type": "text", "id": "gads_add_to_cart_label", "label": "Google Ads add-to-cart conversion label (optional)" },
+      { "type": "text", "id": "merchant_verification", "label": "Google site verification meta content (optional)", "info": "Paste only the content value from Merchant Center's HTML-tag method." }
+    ]
+  },
+  {
+    "name": "Social",
+    "settings": [
+      { "type": "url", "id": "social_tiktok", "label": "TikTok" },
+      { "type": "url", "id": "social_instagram", "label": "Instagram" },
+      { "type": "url", "id": "social_pinterest", "label": "Pinterest" },
+      { "type": "url", "id": "social_youtube", "label": "YouTube" }
+    ]
+  }
+]

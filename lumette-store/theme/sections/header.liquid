@@ -1,0 +1,65 @@
+{%- liquid
+  assign menu = linklists[section.settings.menu]
+-%}
+<header class="header{% if section.settings.sticky %} header--sticky{% endif %}">
+  <div class="page-width header__inner">
+    <button type="button" class="icon-button menu-toggle" data-menu-toggle aria-expanded="false" aria-controls="MobileMenu" aria-label="{{ 'general.menu' | t }}">{% render 'icon', name: 'menu' %}</button>
+
+    <a class="header__logo link-plain" href="{{ routes.root_url }}" {% if request.page_type == 'index' %}aria-current="page"{% endif %}>
+      {% render 'logo' %}
+      <span class="visually-hidden">{{ settings.brand_tagline | escape }}</span>
+    </a>
+
+    <nav class="header__nav" aria-label="{{ 'general.menu' | t }}">
+      <ul class="nav-list">
+        {%- for link in menu.links -%}
+          <li>
+            <a href="{{ link.url }}" {% if link.current %}aria-current="page"{% endif %}>{{ link.title | escape }}</a>
+            {%- if link.links.size > 0 -%}
+              <ul class="dropdown">
+                {%- for child in link.links -%}<li><a href="{{ child.url }}">{{ child.title | escape }}</a></li>{%- endfor -%}
+              </ul>
+            {%- endif -%}
+          </li>
+        {%- endfor -%}
+      </ul>
+    </nav>
+
+    <div class="header__icons">
+      <a class="icon-button" href="{{ routes.search_url }}" aria-label="{{ 'general.search' | t }}">{% render 'icon', name: 'search' %}</a>
+      {%- if shop.customer_accounts_enabled -%}
+        <a class="icon-button" href="{{ routes.account_url }}" aria-label="{{ 'general.account' | t }}">{% render 'icon', name: 'account' %}</a>
+      {%- endif -%}
+      <a class="icon-button" href="{{ routes.cart_url }}" data-cart-open aria-label="{{ 'general.cart' | t }}">
+        {% render 'icon', name: 'cart' %}
+        <span class="cart-count" data-cart-count {% if cart.item_count == 0 %}hidden{% endif %}>{{ cart.item_count }}</span>
+        <span class="visually-hidden">{{ 'general.cart_items' | t: count: cart.item_count }}</span>
+      </a>
+    </div>
+  </div>
+
+  <div class="mobile-menu" id="MobileMenu" data-mobile-menu hidden role="dialog" aria-modal="true" aria-label="{{ 'general.menu' | t }}">
+    <div class="mobile-menu__top">
+      <a class="link-plain" href="{{ routes.root_url }}">{% render 'logo' %}</a>
+      <button type="button" class="icon-button" data-menu-close aria-label="{{ 'general.close' | t }}">{% render 'icon', name: 'close' %}</button>
+    </div>
+    <nav aria-label="{{ 'general.menu' | t }}">
+      {%- for link in menu.links -%}
+        <a href="{{ link.url }}">{{ link.title | escape }}</a>
+        {%- if link.links.size > 0 -%}
+          <div class="sub">{%- for child in link.links -%}<a href="{{ child.url }}">{{ child.title | escape }}</a>{%- endfor -%}</div>
+        {%- endif -%}
+      {%- endfor -%}
+      <a href="{{ routes.search_url }}">{{ 'general.search' | t }}</a>
+    </nav>
+  </div>
+</header>
+{% schema %}
+{
+  "name": "Header",
+  "settings": [
+    { "type": "link_list", "id": "menu", "label": "Main menu", "default": "main-menu" },
+    { "type": "checkbox", "id": "sticky", "label": "Sticky header", "default": true }
+  ]
+}
+{% endschema %}

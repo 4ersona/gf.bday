@@ -1,0 +1,177 @@
+{
+  "general": {
+    "skip_to_content": "Passer au contenu",
+    "menu": "Menu",
+    "close": "Fermer",
+    "search": "Rechercher",
+    "search_placeholder": "Rechercher des produits",
+    "account": "Compte",
+    "log_in": "Connexion",
+    "cart": "Panier",
+    "cart_items": {
+      "one": "{{ count }} article",
+      "other": "{{ count }} articles"
+    },
+    "continue_shopping": "Continuer vos achats",
+    "view_all": "Tout voir",
+    "shop_now": "Magasiner",
+    "learn_more": "En savoir plus",
+    "sold_out": "Épuisé",
+    "from_price": "À partir de {{ price }}",
+    "regular_price": "Prix régulier",
+    "sale_price": "Prix réduit",
+    "unit_price": "Prix unitaire",
+    "price_tax_note": "Taxes calculées à la caisse.",
+    "loading": "Chargement...",
+    "previous": "Précédent",
+    "next": "Suivant",
+    "page_of": "Page {{ current }} de {{ total }}",
+    "breadcrumb": "Fil d'Ariane",
+    "home": "Accueil",
+    "language": "Langue",
+    "country_region": "Pays/région",
+    "update": "Mettre à jour",
+    "powered": "Propulsé par Shopify"
+  },
+  "announcement": {
+    "free_shipping": "Livraison gratuite dès {{ amount }} d'achat"
+  },
+  "home": {
+    "shop_by_category": "Magasiner par catégorie",
+    "best_sellers": "Les plus vendus",
+    "new_arrivals": "Nouveautés"
+  },
+  "collection": {
+    "products_count": {
+      "one": "{{ count }} produit",
+      "other": "{{ count }} produits"
+    },
+    "filter_and_sort": "Filtrer et trier",
+    "filter": "Filtrer",
+    "sort_by": "Trier par",
+    "clear_all": "Tout effacer",
+    "apply": "Appliquer",
+    "price_from": "De",
+    "price_to": "À",
+    "price_max_is": "Le prix le plus élevé est de {{ price }}",
+    "in_stock": "En stock",
+    "out_of_stock": "Rupture de stock",
+    "no_products": "Aucun produit ne correspond à ces filtres.",
+    "no_products_help": "Essayez de retirer un filtre ou parcourez toute la collection.",
+    "remove_filter": "Retirer le filtre : {{ filter }}",
+    "sort": {
+      "manual": "En vedette",
+      "best-selling": "Meilleures ventes",
+      "title-ascending": "Alphabétique, A-Z",
+      "title-descending": "Alphabétique, Z-A",
+      "price-ascending": "Prix, croissant",
+      "price-descending": "Prix, décroissant",
+      "created-descending": "Date, du plus récent au plus ancien",
+      "created-ascending": "Date, du plus ancien au plus récent"
+    }
+  },
+  "product": {
+    "add_to_cart": "Ajouter au panier",
+    "adding": "Ajout en cours...",
+    "added": "Ajouté au panier",
+    "sold_out": "Épuisé",
+    "unavailable": "Indisponible",
+    "quantity": "Quantité",
+    "decrease_quantity": "Diminuer la quantité",
+    "increase_quantity": "Augmenter la quantité",
+    "choose": "Choisir : {{ option }}",
+    "gallery": "Images du produit",
+    "view_image": "Afficher l'image {{ index }} sur {{ total }}",
+    "benefits": "Pourquoi vous allez l'aimer",
+    "details": "Détails",
+    "how_to_use": "Mode d'emploi",
+    "whats_included": "Contenu de la boîte",
+    "specs": "Caractéristiques",
+    "shipping_returns": "Livraison et retours",
+    "delivery_estimate": "Livraison estimée",
+    "delivery_estimate_range": "{{ from }} - {{ to }}",
+    "delivery_estimate_note": "Selon un délai de {{ min }} à {{ max }} jours ouvrables à partir de la commande. Il s'agit d'une estimation, non d'une garantie; les transporteurs peuvent avoir du retard.",
+    "ships_from_cn": "Expédié depuis l'entrepôt de notre partenaire logistique en Chine",
+    "ships_from_us": "Expédié depuis un entrepôt aux États-Unis",
+    "ships_from_ca": "Expédié depuis un entrepôt au Canada",
+    "free_shipping_note": "Livraison gratuite dès {{ amount }} d'achat",
+    "returns_note": "Retours sous {{ days }} jours. Consultez notre politique de retour.",
+    "faq": "Questions fréquentes",
+    "you_may_also_like": "Vous aimerez aussi",
+    "complete_the_routine": "Complétez votre routine",
+    "view_full_details": "Voir tous les détails",
+    "pickup_unavailable": "Ramassage non disponible",
+    "share": "Partager",
+    "sku": "UGS"
+  },
+  "cart": {
+    "title": "Votre panier",
+    "empty": "Votre panier est vide",
+    "empty_help": "Trouvez un outil qui simplifie votre routine.",
+    "remove": "Retirer {{ title }}",
+    "subtotal": "Sous-total",
+    "checkout": "Passer à la caisse",
+    "view_cart": "Voir le panier",
+    "note": "Note de commande",
+    "shipping_taxes": "Livraison et taxes calculées à la caisse.",
+    "discount": "Rabais",
+    "free_shipping_unlocked": "Livraison gratuite débloquée!",
+    "free_shipping_away": "Plus que {{ amount }} pour la livraison gratuite",
+    "line_total": "Total de la ligne",
+    "update_error": "Nous n'avons pas pu mettre à jour votre panier. Veuillez réessayer.",
+    "stock_limit": "Seulement {{ quantity }} disponible(s) - nous avons mis à jour votre panier."
+  },
+  "newsletter": {
+    "heading": "Joignez la liste",
+    "email_label": "Adresse courriel",
+    "email_placeholder": "vous@exemple.com",
+    "subscribe": "S'abonner",
+    "success": "Merci de votre abonnement! Vérifiez votre boîte de réception.",
+    "error": "Veuillez saisir une adresse courriel valide.",
+    "consent": "En vous abonnant, vous acceptez de recevoir des courriels promotionnels. Désabonnement possible en tout temps.",
+    "popup_close": "Fermer l'offre"
+  },
+  "contact": {
+    "name": "Nom",
+    "email": "Courriel",
+    "order_number": "Numéro de commande (facultatif)",
+    "message": "Comment pouvons-nous vous aider?",
+    "send": "Envoyer le message",
+    "success": "Merci! Nous avons bien reçu votre message et vous répondrons sous 1 à 2 jours ouvrables.",
+    "error": "Une erreur est survenue. Veuillez vérifier les champs ci-dessous et réessayer."
+  },
+  "track": {
+    "heading": "Suivre votre commande",
+    "tracking_label": "Numéro de suivi",
+    "tracking_placeholder": "p. ex. YT1234567890123456",
+    "track_button": "Suivre le colis",
+    "opens_new_tab": "Ouvre la page de suivi 17TRACK dans un nouvel onglet",
+    "account_lookup": "Vous préférez consulter l'état de votre commande dans votre compte?",
+    "account_link": "Connectez-vous pour voir vos commandes"
+  },
+  "search": {
+    "title": "Recherche",
+    "results_for": "{{ count }} résultats pour « {{ terms }} »",
+    "no_results": "Aucun résultat pour « {{ terms }} ». Vérifiez l'orthographe ou essayez un terme plus général.",
+    "button": "Rechercher"
+  },
+  "404": {
+    "title": "Page introuvable",
+    "text": "La page que vous cherchez a été déplacée ou n'existe pas.",
+    "cta": "Retour à la boutique"
+  },
+  "blog": {
+    "read_more": "Lire la suite",
+    "published": "Publié le {{ date }}"
+  },
+  "footer": {
+    "shop": "Boutique",
+    "help": "Aide",
+    "payment_methods": "Modes de paiement acceptés",
+    "follow": "Suivez-nous",
+    "rights": "Tous droits réservés."
+  },
+  "gift_card": {
+    "heading": "Votre carte-cadeau"
+  }
+}

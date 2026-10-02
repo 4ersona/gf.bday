@@ -1,0 +1,23 @@
+{%- comment -%}
+  Params: decorative (true => alt=""), image, sizes, widths (comma list, default 360,540,720,900,1200,1600), class, loading ('lazy'|'eager'), alt (optional override), fetchpriority
+  Always outputs explicit width/height to prevent layout shift.
+{%- endcomment -%}
+{%- liquid
+  assign widths = widths | default: '360,540,720,900,1200,1600' | split: ','
+  assign alt_text = alt | default: image.alt | default: fallback_alt
+  if decorative
+    assign alt_text = ''
+  endif
+  assign load = loading | default: 'lazy'
+-%}
+<img
+  src="{{ image | image_url: width: 900 }}"
+  srcset="{%- for w in widths -%}{%- assign wi = w | plus: 0 -%}{%- if wi <= image.width -%}{{ image | image_url: width: wi }} {{ wi }}w{%- unless forloop.last -%}, {% endunless -%}{%- endif -%}{%- endfor -%}"
+  sizes="{{ sizes | default: '(min-width: 990px) 33vw, 50vw' }}"
+  alt="{{ alt_text | escape }}"
+  width="{{ image.width }}"
+  height="{{ image.height }}"
+  loading="{{ load }}"
+  {% if fetchpriority %}fetchpriority="{{ fetchpriority }}"{% endif %}
+  {% if class %}class="{{ class }}"{% endif %}
+  decoding="async">

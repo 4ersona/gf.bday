@@ -1,0 +1,177 @@
+{
+  "general": {
+    "skip_to_content": "Skip to content",
+    "menu": "Menu",
+    "close": "Close",
+    "search": "Search",
+    "search_placeholder": "Search products",
+    "account": "Account",
+    "log_in": "Log in",
+    "cart": "Cart",
+    "cart_items": {
+      "one": "{{ count }} item",
+      "other": "{{ count }} items"
+    },
+    "continue_shopping": "Continue shopping",
+    "view_all": "View all",
+    "shop_now": "Shop now",
+    "learn_more": "Learn more",
+    "sold_out": "Sold out",
+    "from_price": "From {{ price }}",
+    "regular_price": "Regular price",
+    "sale_price": "Sale price",
+    "unit_price": "Unit price",
+    "price_tax_note": "Taxes calculated at checkout.",
+    "loading": "Loading...",
+    "previous": "Previous",
+    "next": "Next",
+    "page_of": "Page {{ current }} of {{ total }}",
+    "breadcrumb": "Breadcrumb",
+    "home": "Home",
+    "language": "Language",
+    "country_region": "Country/region",
+    "update": "Update",
+    "powered": "Powered by Shopify"
+  },
+  "announcement": {
+    "free_shipping": "Free shipping on orders over {{ amount }}"
+  },
+  "home": {
+    "shop_by_category": "Shop by category",
+    "best_sellers": "Best sellers",
+    "new_arrivals": "New arrivals"
+  },
+  "collection": {
+    "products_count": {
+      "one": "{{ count }} product",
+      "other": "{{ count }} products"
+    },
+    "filter_and_sort": "Filter and sort",
+    "filter": "Filter",
+    "sort_by": "Sort by",
+    "clear_all": "Clear all",
+    "apply": "Apply",
+    "price_from": "From",
+    "price_to": "To",
+    "price_max_is": "The highest price is {{ price }}",
+    "in_stock": "In stock",
+    "out_of_stock": "Out of stock",
+    "no_products": "No products match those filters.",
+    "no_products_help": "Try removing a filter or browse the whole collection.",
+    "remove_filter": "Remove filter: {{ filter }}",
+    "sort": {
+      "manual": "Featured",
+      "best-selling": "Best selling",
+      "title-ascending": "Alphabetically, A-Z",
+      "title-descending": "Alphabetically, Z-A",
+      "price-ascending": "Price, low to high",
+      "price-descending": "Price, high to low",
+      "created-descending": "Date, new to old",
+      "created-ascending": "Date, old to new"
+    }
+  },
+  "product": {
+    "add_to_cart": "Add to cart",
+    "adding": "Adding...",
+    "added": "Added to cart",
+    "sold_out": "Sold out",
+    "unavailable": "Unavailable",
+    "quantity": "Quantity",
+    "decrease_quantity": "Decrease quantity",
+    "increase_quantity": "Increase quantity",
+    "choose": "Choose {{ option }}",
+    "gallery": "Product images",
+    "view_image": "Show image {{ index }} of {{ total }}",
+    "benefits": "Why you'll like it",
+    "details": "Details",
+    "how_to_use": "How to use",
+    "whats_included": "What's in the box",
+    "specs": "Specifications",
+    "shipping_returns": "Shipping and returns",
+    "delivery_estimate": "Estimated delivery",
+    "delivery_estimate_range": "{{ from }} - {{ to }}",
+    "delivery_estimate_note": "Based on {{ min }}-{{ max }} business days from order. This is an estimate, not a guarantee; carriers can run late.",
+    "ships_from_cn": "Ships from our fulfilment partner's warehouse in China",
+    "ships_from_us": "Ships from a warehouse in the United States",
+    "ships_from_ca": "Ships from a warehouse in Canada",
+    "free_shipping_note": "Free shipping on orders over {{ amount }}",
+    "returns_note": "{{ days }}-day returns. See our Returns policy.",
+    "faq": "Frequently asked questions",
+    "you_may_also_like": "You may also like",
+    "complete_the_routine": "Complete the routine",
+    "view_full_details": "View full details",
+    "pickup_unavailable": "Pickup unavailable",
+    "share": "Share",
+    "sku": "SKU"
+  },
+  "cart": {
+    "title": "Your cart",
+    "empty": "Your cart is empty",
+    "empty_help": "Find something that makes your routine easier.",
+    "remove": "Remove {{ title }}",
+    "subtotal": "Subtotal",
+    "checkout": "Check out",
+    "view_cart": "View cart",
+    "note": "Order note",
+    "shipping_taxes": "Shipping and taxes calculated at checkout.",
+    "discount": "Discount",
+    "free_shipping_unlocked": "You've unlocked free shipping!",
+    "free_shipping_away": "You're {{ amount }} away from free shipping",
+    "line_total": "Line total",
+    "update_error": "We couldn't update your cart. Please try again.",
+    "stock_limit": "Only {{ quantity }} available - we've updated your cart."
+  },
+  "newsletter": {
+    "heading": "Join the list",
+    "email_label": "Email address",
+    "email_placeholder": "you@example.com",
+    "subscribe": "Subscribe",
+    "success": "Thanks for subscribing! Check your inbox.",
+    "error": "Please enter a valid email address.",
+    "consent": "By subscribing you agree to receive marketing emails. Unsubscribe any time.",
+    "popup_close": "Close offer"
+  },
+  "contact": {
+    "name": "Name",
+    "email": "Email",
+    "order_number": "Order number (optional)",
+    "message": "How can we help?",
+    "send": "Send message",
+    "success": "Thanks! We've received your message and will reply within 1-2 business days.",
+    "error": "Something went wrong. Please check the fields below and try again."
+  },
+  "track": {
+    "heading": "Track your order",
+    "tracking_label": "Tracking number",
+    "tracking_placeholder": "e.g. YT1234567890123456",
+    "track_button": "Track package",
+    "opens_new_tab": "Opens the 17TRACK tracking page in a new tab",
+    "account_lookup": "Prefer to check your order status in your account?",
+    "account_link": "Log in to view your orders"
+  },
+  "search": {
+    "title": "Search",
+    "results_for": "{{ count }} results for \"{{ terms }}\"",
+    "no_results": "No results found for \"{{ terms }}\". Check the spelling or try a broader term.",
+    "button": "Search"
+  },
+  "404": {
+    "title": "Page not found",
+    "text": "The page you're looking for has moved or doesn't exist.",
+    "cta": "Back to the shop"
+  },
+  "blog": {
+    "read_more": "Read more",
+    "published": "Published {{ date }}"
+  },
+  "footer": {
+    "shop": "Shop",
+    "help": "Help",
+    "payment_methods": "Accepted payment methods",
+    "follow": "Follow us",
+    "rights": "All rights reserved."
+  },
+  "gift_card": {
+    "heading": "Your gift card"
+  }
+}
