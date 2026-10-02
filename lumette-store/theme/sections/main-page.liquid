@@ -1,0 +1,9 @@
+<div class="page-width section">
+  <article class="prose">
+    <h1>{{ page.title | escape }}</h1>
+    <div class="rte">{{ page.content }}</div>
+  </article>
+</div>
+{% schema %}
+{ "name": "Page", "settings": [] }
+{% endschema %}

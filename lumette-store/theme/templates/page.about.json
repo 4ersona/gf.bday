@@ -1,0 +1,51 @@
+{
+  "sections": {
+    "intro": {
+      "type": "rich-text",
+      "settings": {
+        "heading": "Beauty tools, chosen with care",
+        "text": "<p>Lumette is an online shop for beauty tools and accessories: the things that sit next to the products, not inside them. Heatless curlers, brush sets, mirrors, organizers, skin tools and nail and lash essentials.</p>",
+        "center": true,
+        "background": "none"
+      }
+    },
+    "what": {
+      "type": "image-with-text",
+      "settings": {
+        "background": "surface",
+        "eyebrow": "What we sell",
+        "heading": "Tools, not formulas",
+        "text": "<p>We stay on the tools-and-accessories side of beauty on purpose. It means you'll never need to decode an ingredient list here, and every product can be judged by what it does: how it feels in your hand, how it fits your routine and how long it lasts.</p><p>Each product page lists what's in the box, how to use it and the materials we know about.</p>",
+        "button_label": "Shop all tools",
+        "button_link": "shopify://collections/all"
+      }
+    },
+    "how": {
+      "type": "image-with-text",
+      "settings": {
+        "reverse": true,
+        "background": "none",
+        "eyebrow": "How we work",
+        "heading": "Honest about delivery",
+        "text": "<p>We work with fulfilment partners who pack and ship your order, so we don't hold stock ourselves. Many items ship from overseas, and delivery usually takes 1-3 weeks. We show an estimated window on every product page and send tracking as soon as it exists.</p><p>If something isn't right, tell us within 30 days of delivery and we'll fix it.</p>",
+        "button_label": "Read our shipping policy",
+        "button_link": "shopify://pages/shipping-policy"
+      }
+    },
+    "promise": {
+      "type": "rich-text",
+      "settings": {
+        "heading": "What we promise",
+        "text": "<ul><li><strong>Plain-spoken product pages.</strong> No exaggerated claims and no medical promises.</li><li><strong>Real reviews only.</strong> We only display reviews written by customers who bought the product.</li><li><strong>Fair returns.</strong> 30 days from delivery. Damaged or incorrect items are on us.</li><li><strong>A person on the other end.</strong> Write to us any time through the contact page.</li></ul>",
+        "center": false,
+        "background": "blush"
+      }
+    }
+  },
+  "order": [
+    "intro",
+    "what",
+    "how",
+    "promise"
+  ]
+}

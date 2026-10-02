@@ -1,0 +1,23 @@
+{%- comment -%} Params: product, show_second_image (bool), lazy (bool, default true) {%- endcomment -%}
+{%- liquid
+  assign second = product.media[1].preview_image
+  if product.media[1].media_type != 'image'
+    assign second = nil
+  endif
+-%}
+{%- assign load = loading | default: 'lazy' -%}
+<div class="card">
+  <div class="card__media{% if show_second_image and second %} card__media--hover{% endif %}">
+    {%- if product.featured_image -%}
+      {% render 'responsive-image', image: product.featured_image, fallback_alt: product.title, sizes: '(min-width: 990px) 25vw, 50vw', widths: '240,360,540,720,900', loading: load %}
+      {%- if show_second_image and second -%}
+        {% render 'responsive-image', image: second, decorative: true, sizes: '(min-width: 990px) 25vw, 50vw', widths: '360,540,720', loading: 'lazy' %}
+      {%- endif -%}
+    {%- else -%}
+      <div class="card__placeholder">{% render 'icon', name: 'sparkle' %}</div>
+    {%- endif -%}
+    {%- unless product.available -%}<span class="card__badge">{{ 'general.sold_out' | t }}</span>{%- endunless -%}
+  </div>
+  <h3 class="card__title"><a href="{{ product.url }}">{{ product.title | escape }}</a></h3>
+  {% render 'price', product: product %}
+</div>

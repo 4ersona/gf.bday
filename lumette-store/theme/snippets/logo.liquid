@@ -1,0 +1,6 @@
+{%- comment -%} Text wordmark by default; uses uploaded logo image if set. {%- endcomment -%}
+{%- if settings.logo_image != blank -%}
+  <img src="{{ settings.logo_image | image_url: width: 480 }}" alt="{{ settings.brand_name | escape }}" width="{{ settings.logo_width }}" height="{{ settings.logo_width | divided_by: settings.logo_image.aspect_ratio | round }}" style="width:{{ settings.logo_width }}px">
+{%- else -%}
+  <span class="wordmark">{{ settings.brand_name }}<svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="currentColor"><path d="M12 1.5c.6 4.600 3.100 7.200 8 8-4.900.8-7.400 3.400-8 8-.6-4.600-3.100-7.200-8-8 4.900-.8 7.400-3.400 8-8Z"/></svg></span>
+{%- endif -%}

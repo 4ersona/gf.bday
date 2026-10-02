@@ -1,0 +1,102 @@
+{
+  "sections": {
+    "main": {
+      "type": "main-page",
+      "settings": {}
+    },
+    "faq": {
+      "type": "faq",
+      "blocks": {
+        "q1": {
+          "type": "item",
+          "settings": {
+            "question": "How long does delivery take?",
+            "answer": "<p>It depends on where the item ships from. Every product page shows an estimated delivery window in business days. Items shipped from our partner's warehouse in China typically arrive in about 8-18 business days, which includes 1-3 business days of processing. Items from a US or Canadian warehouse are marked on the product page and usually arrive in about 3-9 business days. These are estimates; carriers can run late, especially during holidays and sales periods.</p>"
+          }
+        },
+        "q2": {
+          "type": "item",
+          "settings": {
+            "question": "Why does shipping take longer than big retailers?",
+            "answer": "<p>We don't hold stock in a warehouse of our own. Orders are packed and sent by our fulfilment partner, and many items travel from overseas. That is how we keep prices fair, and it is why we show delivery windows up front instead of promising next-day arrival.</p>"
+          }
+        },
+        "q3": {
+          "type": "item",
+          "settings": {
+            "question": "When will I get a tracking number?",
+            "answer": "<p>Within 1-3 business days of ordering, in most cases, once the parcel is handed to the carrier. We email it to you automatically. It can take another 2-5 days before the carrier's tracking shows movement. Use the <a href=\"/pages/track-your-order\">Track your order</a> page to check progress.</p>"
+          }
+        },
+        "q4": {
+          "type": "item",
+          "settings": {
+            "question": "Do you ship to Canada and the United States?",
+            "answer": "<p>Yes. We ship to both. Prices show in USD for the United States and CAD for Canada. Taxes are calculated at checkout. Orders to Canada may be subject to duties or brokerage fees depending on the carrier; the checkout shows what applies to your order before you pay.</p>"
+          }
+        },
+        "q5": {
+          "type": "item",
+          "settings": {
+            "question": "What is your return policy?",
+            "answer": "<p>You can return unused items in their original packaging within 30 days of delivery. If something arrives damaged, defective or not as described, we'll replace it or refund you at no cost to you. Full details are in our <a href=\"/policies/refund-policy\">Returns and Refunds policy</a>.</p>"
+          }
+        },
+        "q6": {
+          "type": "item",
+          "settings": {
+            "question": "My order arrived damaged or incorrect. What now?",
+            "answer": "<p>We're sorry about that. Email us within 30 days of delivery with your order number and a clear photo of the item and the packaging. We'll send a replacement or refund you, whichever you prefer.</p>"
+          }
+        },
+        "q7": {
+          "type": "item",
+          "settings": {
+            "question": "Can I change or cancel my order?",
+            "answer": "<p>Orders are sent to our fulfilment partner quickly, so changes are only possible within about 12 hours of ordering. Contact us as soon as you can with your order number and we'll do our best. Once an order has shipped it can't be cancelled, but it can be returned under our returns policy.</p>"
+          }
+        },
+        "q8": {
+          "type": "item",
+          "settings": {
+            "question": "Are your products safe for sensitive skin and hair?",
+            "answer": "<p>We sell tools and accessories, not creams or serums. Each product page lists materials where we have them. If you have a known allergy or sensitivity, check the materials list before buying, patch-test where relevant, and stop using any item that irritates you. Our products are not medical devices and make no medical claims.</p>"
+          }
+        },
+        "q9": {
+          "type": "item",
+          "settings": {
+            "question": "Do you offer a discount for new customers?",
+            "answer": "<p>Yes. Join our email list and we'll send a code for 10% off your first order. The code is single-use and can't be combined with other discounts.</p>"
+          }
+        },
+        "q10": {
+          "type": "item",
+          "settings": {
+            "question": "How do I contact you?",
+            "answer": "<p>Use the <a href=\"/pages/contact\">Contact page</a>. We reply within 1-2 business days, Monday to Friday.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "q1",
+        "q2",
+        "q3",
+        "q4",
+        "q5",
+        "q6",
+        "q7",
+        "q8",
+        "q9",
+        "q10"
+      ],
+      "settings": {
+        "heading": ""
+      }
+    }
+  },
+  "order": [
+    "main",
+    "faq"
+  ]
+}

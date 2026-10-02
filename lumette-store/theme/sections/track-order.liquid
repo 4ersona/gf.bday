@@ -1,0 +1,32 @@
+<div class="page-width section">
+  <div class="prose stack">
+    <h1>{{ page.title | escape }}</h1>
+    <div class="rte">{{ page.content }}</div>
+
+    <form class="stack bg-surface" style="padding:24px;border-radius:16px" action="https://t.17track.net/en" method="get" target="_blank" rel="noopener" data-track-form
+      onsubmit="var n=this.querySelector('input').value.trim(); if(!n){return false;} window.open('https://t.17track.net/en#nums='+encodeURIComponent(n),'_blank','noopener'); return false;">
+      <label class="field__label" for="TrackingNumber">{{ 'track.tracking_label' | t }}</label>
+      <input class="field__input" id="TrackingNumber" name="nums" type="text" required autocomplete="off" placeholder="{{ 'track.tracking_placeholder' | t }}" aria-describedby="TrackHint">
+      <small id="TrackHint">{{ 'track.opens_new_tab' | t }}</small>
+      <button class="button" type="submit">{{ 'track.track_button' | t }}</button>
+    </form>
+
+    {%- for block in section.blocks -%}
+      {%- if block.type == '@app' -%}<div {{ block.shopify_attributes }}>{% render block %}</div>{%- endif -%}
+    {%- endfor -%}
+
+    {%- if shop.customer_accounts_enabled -%}
+      <p>{{ 'track.account_lookup' | t }} <a href="{{ routes.account_url }}">{{ 'track.account_link' | t }}</a></p>
+    {%- endif -%}
+    <div class="callout">{{ section.settings.note }}</div>
+  </div>
+</div>
+{% schema %}
+{
+  "name": "Track your order",
+  "settings": [
+    { "type": "textarea", "id": "note", "label": "Note", "default": "Tracking numbers are emailed once your order ships. A new number can take 2-5 days to show movement because carriers only update after the first scan." }
+  ],
+  "blocks": [{ "type": "@app" }]
+}
+{% endschema %}

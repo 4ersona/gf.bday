@@ -1,0 +1,29 @@
+{%- if settings.popup_enabled -%}
+<div class="popup" data-popup hidden role="dialog" aria-modal="true" aria-labelledby="PopupHeading"
+  data-delay="{{ settings.popup_delay }}" data-cooldown="{{ settings.popup_cooldown }}"
+  data-success="{{ settings.popup_success | escape }}" data-error="{{ 'newsletter.error' | t }}">
+  <div class="popup__box{% if settings.popup_image != blank %} has-media{% endif %}">
+    <button type="button" class="icon-button popup__close" data-popup-close aria-label="{{ 'newsletter.popup_close' | t }}">{% render 'icon', name: 'close' %}</button>
+    {%- if settings.popup_image != blank -%}
+      <div class="popup__media">{% render 'responsive-image', image: settings.popup_image, alt: '', widths: '400,600,800', sizes: '380px' %}</div>
+    {%- endif -%}
+    <div class="popup__body stack">
+      <p class="eyebrow">{{ settings.brand_name }}</p>
+      <h2 id="PopupHeading" class="h2">{{ settings.popup_heading }}</h2>
+      <p>{{ settings.popup_text }}</p>
+      <p class="form-message" data-popup-message hidden role="status"></p>
+      {%- form 'customer', id: 'PopupForm' -%}
+        <input type="hidden" name="contact[tags]" value="newsletter,popup,welcome-offer">
+        {%- if form.posted_successfully? -%}<span data-popup-success hidden></span>{%- endif -%}
+        <label class="field__label" for="PopupEmail">{{ 'newsletter.email_label' | t }}</label>
+        <input class="field__input" type="email" id="PopupEmail" name="contact[email]" autocomplete="email" required placeholder="{{ 'newsletter.email_placeholder' | t }}">
+        <button class="button button--full" type="submit" style="margin-top:.75rem">{{ settings.popup_button }}</button>
+      {%- endform -%}
+      <p class="popup__note">{{ settings.popup_consent | escape }}</p>
+    </div>
+  </div>
+</div>
+{%- endif -%}
+{% schema %}
+{ "name": "Email popup", "settings": [{ "type": "paragraph", "content": "Popup content is edited in Theme settings > Email popup & welcome offer." }] }
+{% endschema %}

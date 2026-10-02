@@ -1,0 +1,19 @@
+<div class="page-width section">
+  <h1>{{ blog.title | escape }}</h1>
+  {%- paginate blog.articles by 12 -%}
+    <ul class="grid grid--3">
+      {%- for article in blog.articles -%}
+        <li class="article-card">
+          {%- if article.image -%}<a href="{{ article.url }}" tabindex="-1" aria-hidden="true">{% render 'responsive-image', image: article.image, fallback_alt: article.title, sizes: '(min-width: 750px) 33vw, 100vw' %}</a>{%- endif -%}
+          <h2 class="h3" style="margin-top:.75rem"><a href="{{ article.url }}" class="link-plain">{{ article.title | escape }}</a></h2>
+          <p>{{ article.excerpt_or_content | strip_html | truncate: 140 }}</p>
+          <a href="{{ article.url }}">{{ 'blog.read_more' | t }}<span class="visually-hidden">: {{ article.title | escape }}</span></a>
+        </li>
+      {%- endfor -%}
+    </ul>
+    {% render 'pagination', paginate: paginate %}
+  {%- endpaginate -%}
+</div>
+{% schema %}
+{ "name": "Blog", "settings": [] }
+{% endschema %}

@@ -1,0 +1,193 @@
+{
+  "sections": {
+    "hero": {
+      "type": "hero",
+      "settings": {}
+    },
+    "chips": {
+      "type": "category-chips",
+      "blocks": {
+        "c1": {
+          "type": "chip",
+          "settings": {
+            "collection": "heatless-hair"
+          }
+        },
+        "c2": {
+          "type": "chip",
+          "settings": {
+            "collection": "hair-tools"
+          }
+        },
+        "c3": {
+          "type": "chip",
+          "settings": {
+            "collection": "makeup-brushes"
+          }
+        },
+        "c4": {
+          "type": "chip",
+          "settings": {
+            "collection": "vanity-organizers"
+          }
+        },
+        "c5": {
+          "type": "chip",
+          "settings": {
+            "collection": "face-skin-tools"
+          }
+        },
+        "c6": {
+          "type": "chip",
+          "settings": {
+            "collection": "nails-lashes"
+          }
+        }
+      },
+      "block_order": [
+        "c1",
+        "c2",
+        "c3",
+        "c4",
+        "c5",
+        "c6"
+      ],
+      "settings": {}
+    },
+    "promises": {
+      "type": "value-props",
+      "blocks": {
+        "p1": {
+          "type": "prop",
+          "settings": {
+            "icon": "sparkle",
+            "title": "Tools for every routine",
+            "text": "Hair, makeup and skin tools in one shop."
+          }
+        },
+        "p2": {
+          "type": "prop",
+          "settings": {
+            "icon": "truck",
+            "title": "Free shipping, simply",
+            "text": "Spend $50 USD / $65 CAD and shipping is on us."
+          }
+        },
+        "p3": {
+          "type": "prop",
+          "settings": {
+            "icon": "return",
+            "title": "30-day returns",
+            "text": "Changed your mind? Read our returns policy."
+          }
+        },
+        "p4": {
+          "type": "prop",
+          "settings": {
+            "icon": "lock",
+            "title": "Secure checkout",
+            "text": "Encrypted payment, powered by Shopify."
+          }
+        }
+      },
+      "block_order": [
+        "p1",
+        "p2",
+        "p3",
+        "p4"
+      ],
+      "settings": {}
+    },
+    "categories": {
+      "type": "featured-collections",
+      "blocks": {
+        "c1": {
+          "type": "collection",
+          "settings": {
+            "collection": "heatless-hair"
+          }
+        },
+        "c2": {
+          "type": "collection",
+          "settings": {
+            "collection": "hair-tools"
+          }
+        },
+        "c3": {
+          "type": "collection",
+          "settings": {
+            "collection": "makeup-brushes"
+          }
+        },
+        "c4": {
+          "type": "collection",
+          "settings": {
+            "collection": "vanity-organizers"
+          }
+        },
+        "c5": {
+          "type": "collection",
+          "settings": {
+            "collection": "face-skin-tools"
+          }
+        },
+        "c6": {
+          "type": "collection",
+          "settings": {
+            "collection": "nails-lashes"
+          }
+        }
+      },
+      "block_order": [
+        "c1",
+        "c2",
+        "c3",
+        "c4",
+        "c5",
+        "c6"
+      ],
+      "settings": {
+        "heading": "Shop by category"
+      }
+    },
+    "bestsellers": {
+      "type": "featured-collection",
+      "settings": {
+        "heading": "Best sellers",
+        "collection": "best-sellers",
+        "limit": 8
+      }
+    },
+    "story": {
+      "type": "image-with-text",
+      "settings": {
+        "background": "surface",
+        "eyebrow": "Our story",
+        "heading": "A good routine shouldn't need a pro's kit bag.",
+        "text": "<p>Lumette is a small online shop for the beauty tools people actually reach for: heatless curlers for overnight waves, brush sets that blend, mirrors with good light and organizers that make a vanity feel calm.</p><p>We choose products for what they do and how they're used, list exactly what's in the box, and tell you plainly how long delivery takes. Orders ship from our fulfilment partners' warehouses, so you'll see an honest delivery window on every product page.</p>",
+        "button_label": "Read more about us",
+        "button_link": "shopify://pages/about"
+      }
+    },
+    "reviews": {
+      "type": "reviews",
+      "settings": {
+        "heading": "Customer reviews"
+      }
+    },
+    "newsletter": {
+      "type": "newsletter",
+      "settings": {}
+    }
+  },
+  "order": [
+    "hero",
+    "chips",
+    "promises",
+    "categories",
+    "bestsellers",
+    "story",
+    "reviews",
+    "newsletter"
+  ]
+}

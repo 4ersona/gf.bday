@@ -1,0 +1,35 @@
+{%- for block in section.blocks -%}
+  {%- liquid
+    assign cur = cart.currency.iso_code
+    assign threshold = settings.free_ship_usd
+    if cur == 'CAD'
+      assign threshold = settings.free_ship_cad
+    endif
+    assign amount = threshold | times: 100 | money_without_trailing_zeros
+  -%}
+  <div class="announcement" role="region" aria-label="{{ settings.brand_name | escape }}" {{ block.shopify_attributes }}>
+    {%- capture msg -%}
+      {%- if block.settings.text != blank -%}{{ block.settings.text | escape }}{%- elsif block.settings.show_free_shipping -%}{{ 'announcement.free_shipping' | t: amount: amount }}{%- endif -%}
+    {%- endcapture -%}
+    {%- if block.settings.link != blank -%}<a href="{{ block.settings.link }}">{{ msg }}</a>{%- else -%}{{ msg }}{%- endif -%}
+  </div>
+  {%- break -%}
+{%- endfor -%}
+{% schema %}
+{
+  "name": "Announcement bar",
+  "max_blocks": 1,
+  "blocks": [
+    {
+      "type": "message",
+      "name": "Message",
+      "limit": 1,
+      "settings": [
+        { "type": "text", "id": "text", "label": "Custom text (leave blank to show the free-shipping message)" },
+        { "type": "checkbox", "id": "show_free_shipping", "label": "Show free-shipping message when text is blank", "default": true },
+        { "type": "url", "id": "link", "label": "Link" }
+      ]
+    }
+  ]
+}
+{% endschema %}

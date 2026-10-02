@@ -1,0 +1,15 @@
+{
+  "current": {
+    "brand_name": "Lumette",
+    "brand_tagline": "Beauty tools for every routine",
+    "cart_drawer": true,
+    "popup_enabled": true,
+    "tracking_enabled": false
+  },
+  "presets": {
+    "Lumette": {
+      "brand_name": "Lumette",
+      "brand_tagline": "Beauty tools for every routine"
+    }
+  }
+}

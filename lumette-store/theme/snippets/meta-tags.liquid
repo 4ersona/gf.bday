@@ -1,0 +1,107 @@
+{%- liquid
+  assign og_title = page_title | default: shop.name
+  assign brand = settings.brand_name | default: shop.name
+  assign og_type = 'website'
+  assign og_url = canonical_url
+  assign og_description = page_description | default: shop.description | default: settings.brand_tagline
+  assign og_image = settings.share_image
+  if request.page_type == 'product'
+    assign og_type = 'product'
+    assign og_image = product.featured_image
+    if page_description == blank
+      assign og_description = product.description | strip_html | strip_newlines | truncate: 155
+    endif
+  elsif request.page_type == 'collection' and collection.image != blank
+    assign og_image = collection.image
+  elsif request.page_type == 'article' and article.image != blank
+    assign og_type = 'article'
+    assign og_image = article.image
+  endif
+-%}
+{%- capture seo_title -%}
+  {%- if request.page_type == 'index' -%}
+    {{ brand }} | {{ settings.brand_tagline }}
+  {%- else -%}
+    {{ page_title }}{% if current_page != 1 %} - {{ 'general.page_of' | t: current: current_page, total: paginate.pages }}{% endif %} | {{ brand }}
+  {%- endif -%}
+{%- endcapture -%}
+<title>{{ seo_title | strip | escape }}</title>
+{%- if og_description != blank -%}
+  <meta name="description" content="{{ og_description | strip_html | escape | truncate: 160 }}">
+{%- endif -%}
+{%- if template.name == 'search' or template.name == 'cart' -%}
+  <meta name="robots" content="noindex, follow">
+{%- endif -%}
+<meta property="og:site_name" content="{{ brand | escape }}">
+<meta property="og:url" content="{{ og_url }}">
+<meta property="og:title" content="{{ og_title | escape }}">
+<meta property="og:type" content="{{ og_type }}">
+<meta property="og:description" content="{{ og_description | strip_html | escape | truncate: 200 }}">
+{%- if og_image != blank -%}
+  <meta property="og:image" content="https:{{ og_image | image_url: width: 1200 }}">
+  <meta property="og:image:secure_url" content="https:{{ og_image | image_url: width: 1200 }}">
+  <meta property="og:image:width" content="{{ og_image.width }}">
+  <meta property="og:image:height" content="{{ og_image.height }}">
+{%- endif -%}
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="{{ og_title | escape }}">
+<meta name="twitter:description" content="{{ og_description | strip_html | escape | truncate: 200 }}">
+
+{%- comment -%} Structured data {%- endcomment -%}
+{%- if request.page_type == 'index' -%}
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "Organization",
+          "name": {{ shop.name | json }},
+          "url": {{ shop.url | json }}
+          {%- if settings.share_image != blank -%},
+          "logo": {{ settings.share_image | image_url: width: 600 | prepend: 'https:' | json }}
+          {%- endif -%}
+        },
+        {
+          "@type": "WebSite",
+          "name": {{ shop.name | json }},
+          "url": {{ shop.url | json }},
+          "potentialAction": {
+            "@type": "SearchAction",
+            "target": "{{ shop.url }}{{ routes.search_url }}?q={search_term_string}",
+            "query-input": "required name=search_term_string"
+          }
+        }
+      ]
+    }
+  </script>
+{%- endif -%}
+{%- if request.page_type == 'product' -%}
+  {{ product | structured_data }}
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": {{ 'general.home' | t | json }}, "item": {{ shop.url | json }} }
+        {%- if collection -%},
+        { "@type": "ListItem", "position": 2, "name": {{ collection.title | json }}, "item": {{ shop.url | append: collection.url | json }} },
+        { "@type": "ListItem", "position": 3, "name": {{ product.title | json }}, "item": {{ shop.url | append: product.url | json }} }
+        {%- else -%},
+        { "@type": "ListItem", "position": 2, "name": {{ product.title | json }}, "item": {{ shop.url | append: product.url | json }} }
+        {%- endif -%}
+      ]
+    }
+  </script>
+{%- endif -%}
+{%- if request.page_type == 'collection' and collection.handle != blank -%}
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": {{ 'general.home' | t | json }}, "item": {{ shop.url | json }} },
+        { "@type": "ListItem", "position": 2, "name": {{ collection.title | json }}, "item": {{ shop.url | append: collection.url | json }} }
+      ]
+    }
+  </script>
+{%- endif -%}
